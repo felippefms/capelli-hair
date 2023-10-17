@@ -7,11 +7,33 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      animation:{
+        'fadein': 'fadein 1s forwards',
+        'fadeout': 'fadeout 1s forwards',
+        'slidein': 'slidein 0.5s forwards',
+        'slideout': 'slideout 0.5s forwards'
       },
+      keyframes: {
+        fadein: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeout: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+        slidein: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        slideout: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-100%)' },
+        }
+      },
+      colors: {
+        
+      }
     },
   },
   plugins: [],

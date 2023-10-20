@@ -130,7 +130,7 @@ export default function Menu() {
       </nav>
 {/**-------------------------LOGIN---------------------------- */}
       <div id="loginmodal" className={`w-full absolute ${loginOpen ? "animate-fadein" : "hidden"} z-30`}>
-          <div className="lg:flex lg:items-center lg:justify-center lg:h-screen lg:bg-[#2e2e2e7e]" onClick={(() => setLoginOpen(!loginOpen))}>
+          <div className="lg:flex lg:items-center lg:justify-center lg:h-screen lg:bg-[#2e2e2e7e]">
             <div className="flex flex-col w-full h-screen bg-[#F1E0CE] lg:bg-[#fff] lg:w-[50vh] lg:mt-11 lg:h-auto lg:rounded-[24px]">
                 <div className="flex flex-row justify-center h-20 items-center lg:justify-start">
                     <button onClick={(() => setLoginOpen(!loginOpen))} className="absolute left-0 ml-4 lg:relative lg:mr-24">
@@ -184,7 +184,7 @@ export default function Menu() {
         </div>
 {/**-------------------------CREATE ACCOUNT--------------------------- */}
         <div className={`flex absolute flex-col w-full ${signUpOpen ? "animate-fadein" : "hidden"} animate-fadein z-30`}>
-          <div className="lg:flex lg:items-center lg:justify-center lg:h-screen lg:bg-[#2e2e2e7e]" onClick={(() => setSignUpOpen(!signUpOpen))}>
+          <div className="lg:flex lg:items-center lg:justify-center lg:h-screen lg:bg-[#2e2e2e7e]">
             <div className="flex flex-col w-full h-screen bg-[#F1E0CE] lg:bg-[#fff] lg:w-[50vh] lg:mt-11 lg:h-auto lg:rounded-[24px]">
                 <div className="flex flex-row justify-center items-center lg:justify-start">
                         <button onClick={(() => setSignUpOpen(!signUpOpen))} className="absolute left-4 top-5 lg:relative lg:mr-24">

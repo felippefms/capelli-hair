@@ -11,7 +11,8 @@ module.exports = {
         'fadein': 'fadein 0.5s forwards',
         'fadeout': 'fadeout 0.5s forwards',
         'slidein': 'slidein 0.5s forwards',
-        'slideout': 'slideout 0.5s forwards'
+        'slideout': 'slideout 0.5s forwards',
+        'wpptextslide': 'wpptextslide 0.7s forwards'
       },
       keyframes: {
         fadein: {
@@ -29,6 +30,10 @@ module.exports = {
         slideout: {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-100%)' },
+        },
+        wpptextslide: {
+          '0%': { transform: 'translateX(25%)' },
+          '100%': { transform: 'translateX(7%)' },
         }
       },
       colors: {

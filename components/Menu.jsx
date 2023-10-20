@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import { HandleLogin, HandleSignUp } from "../app/api/requests";
+
 import Logo from "../src/media/logo.svg";
 import Menubtn from "../src/media/menubtn.svg";
 import Closebtn from "../src/media/closebtn.svg";
@@ -143,9 +145,9 @@ export default function Menu() {
                 </div>
                 <div className="px-6">
                     <div className="flex flex-col justify-center">
-                        <input placeholder="E-mail" type="email" className="w-full border mb-2 px-4 min-h-[61px] max-h-[61px] rounded-[10px] border-[#888888]"></input>
+                        <input placeholder="E-mail" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border mb-2 px-4 min-h-[61px] max-h-[61px] rounded-[10px] border-[#888888]"></input>
                         <div className="relative">
-                            <input placeholder="Senha" type={showPassword ? "text" : "password"} className="w-full border pl-4 pr-12 relative min-h-[61px] max-h-[61px] rounded-[10px] border-[#888888]"></input>
+                            <input placeholder="Senha" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} className="w-full border pl-4 pr-12 relative min-h-[61px] max-h-[61px] rounded-[10px] border-[#888888]"></input>
                             <button onClick={togglePasswordVisibility} className="absolute right-0 h-full px-4">
                                 <Image src={showPassword ? Eyeimg : Eyeslashimg} alt="Esconder/Mostrar Senha"></Image>
                             </button>
@@ -155,7 +157,7 @@ export default function Menu() {
                         </Link>
                     </div>
                     <div className="flex flex-col justify-center items-center">
-                        <button className="flex justify-center w-full rounded-lg py-[10px] text-lg text-[#ffff] bg-[#9D8168]">
+                        <button onClick={() => HandleLogin(email, password)} className="flex justify-center w-full rounded-lg py-[10px] text-lg text-[#ffff] bg-[#9D8168]">
                             Entrar
                         </button>
                         <p className="text-lg text-[#9D8168] my-8">
@@ -199,7 +201,7 @@ export default function Menu() {
                     <div className="flex flex-col justify-center space-y-6">
                         <input placeholder="Nome Completo" type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} className="w-full border pl-4 pr-12 mt-12 relative h-11 rounded-[10px] border-[#888888]"></input>
                         <input placeholder="Telefone" type="number" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full border px-4 h-11 rounded-[10px] border-[#888888]"></input>
-                        <input placeholder="E-Mail" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border pl-4 pr-12 relative h-11 rounded-[10px] border-[#888888]"></input>
+                        <input placeholder="E-mail" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border pl-4 pr-12 relative h-11 rounded-[10px] border-[#888888]"></input>
                         <div className="relative">
                             <input placeholder="Senha" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} className="w-full border pl-4 pr-12 relative h-11 rounded-[10px] border-[#888888]"></input>
                             <button onClick={togglePasswordVisibility} className="absolute right-0 h-full px-4">
@@ -208,8 +210,8 @@ export default function Menu() {
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center mt-6">
-                        <button onClick={() => SignUpHandler(fullName, phone, email, password)} className="flex justify-center w-full rounded-lg py-[10px] text-lg text-[#ffff] bg-[#9D8168]">
-                            Entrar
+                        <button onClick={() => HandleSignUp(fullName, phone, email, password)} className="flex justify-center w-full rounded-lg py-[10px] text-lg text-[#ffff] bg-[#9D8168]">
+                            Criar Conta
                         </button>
                         <p className="text-lg text-[#9D8168] my-8">
                             Ou

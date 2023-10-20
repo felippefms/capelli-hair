@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import Imagemilustracaomobile from "@/src/media/imagemilustracaomobile.png"
-import Imagemilustracao from "@/src/media/imagemilustracao.png"
+import Imagemilustracaomobile from "../src/media/imagemilustracaomobile.png"
+import Imagemilustracao from "../src/media/imagemilustracao.png"
 
 export default function ContentBox4() {
   return (

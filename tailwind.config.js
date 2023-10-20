@@ -8,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       animation:{
-        'fadein': 'fadein 1s forwards',
-        'fadeout': 'fadeout 1s forwards',
+        'fadein': 'fadein 0.5s forwards',
+        'fadeout': 'fadeout 0.5s forwards',
         'slidein': 'slidein 0.5s forwards',
         'slideout': 'slideout 0.5s forwards'
       },

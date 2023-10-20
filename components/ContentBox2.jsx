@@ -4,17 +4,17 @@ import Image from "next/image"
 
 import ExclusiveColorsBox from "./ExclusiveColorsBox"
 
-import Fotomodelo2 from "@/src/media/fotomodelo2.png"
-import Fotomodelo3 from "@/src/media/fotomodelo3.png"
-import Fotomodelo4 from "@/src/media/fotomodelo4.png"
-import Fotomodelo5 from "@/src/media/fotomodelo5.png"
+import Fotomodelo2 from "../src/media/fotomodelo2.png"
+import Fotomodelo3 from "../src/media/fotomodelo3.png"
+import Fotomodelo4 from "../src/media/fotomodelo4.png"
+import Fotomodelo5 from "../src/media/fotomodelo5.png"
 
-import LoiroClaro from "@/src/media/cabelomodelo2.png"
-import CastanhoEscuro from "@/src/media/cabelomodelo3.png"
-import CastanhoClaro from "@/src/media/cabelomodelo4.png"
-import CinzaEscuro from "@/src/media/cabelomodelo5.png"
+import LoiroClaro from "../src/media/cabelomodelo2.png"
+import CastanhoEscuro from "../src/media/cabelomodelo3.png"
+import CastanhoClaro from "../src/media/cabelomodelo4.png"
+import CinzaEscuro from "../src/media/cabelomodelo5.png"
 
-import ArrowRight3img from "@/src/media/arrowright3.png"
+import ArrowRight3img from "../src/media/arrowright3.png"
 
 export default function ContentBox2(){
     return(

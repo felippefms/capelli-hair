@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import Menu from './Menu'
 
-import Logo from '@/src/media/logo.svg'
-import Carrinhoimg  from '@/src/media/bolsa.png'
+import Logo from '../src/media/logo.svg'
+import Carrinhoimg  from '../src/media/bolsa.png'
 
 export default function Header() {
     return (

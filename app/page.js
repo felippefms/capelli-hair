@@ -1,14 +1,14 @@
 import Image from "next/image"
 import Header from "../components/Header"
-import ContentBox1 from "@/components/ContentBox1"
-import ContentBox2 from "@/components/ContentBox2"
-import ContentBox3 from "@/components/ContentBox3"
-import ContentBox4 from "@/components/ContentBox4"
-import ContentBox5 from "@/components/ContentBox5"
-import ContentBox6 from "@/components/ContentBox6"
-import Footer from "@/components/Footer"
+import ContentBox1 from "../components/ContentBox1"
+import ContentBox2 from "../components/ContentBox2"
+import ContentBox3 from "../components/ContentBox3"
+import ContentBox4 from "../components/ContentBox4"
+import ContentBox5 from "../components/ContentBox5"
+import ContentBox6 from "../components/ContentBox6"
+import Footer from "../components/Footer"
 
-import Whatsappimg from '@/src/media/whatsappimg.png'
+import Whatsappimg from '../src/media/whatsappimg.png'
 
 export default function Home() {
   return (

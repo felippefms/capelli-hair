@@ -1,16 +1,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import Instafooterimg from "@/src/media/instafooterimg.png";
-import Tiktokfooterimg from "@/src/media/tiktokfooterimg.png";
-import Faceboofooterkimg from "@/src/media/facebookfooterimg.png";
+import Instafooterimg from "../src/media/instafooterimg.png";
+import Tiktokfooterimg from "../src/media/tiktokfooterimg.png";
+import Faceboofooterkimg from "../src/media/facebookfooterimg.png";
 
-import Logofooterimg from '@/src/media/logofooter.png'
+import Logofooterimg from '../src/media/logofooter.png'
 
 export default function Footer(){
     return(
-        <footer className="flex flex-col md:flex-row md:justify-between bg-[#9D8168] text-[#ffff]">
-            <div className='flex flex-col mt-12 md:my-[64px] ml-9 md:ml-[152px]'>
+        <footer className="flex flex-col lg:flex-row md:justify-between bg-[#9D8168] text-[#ffff]">
+            <div className='flex flex-col mt-12 lg:my-[64px] ml-9 lg:ml-[152px]'>
                 <Image src={Logofooterimg} alt="Capelli Hair Logo"></Image>
                 <p className="text-[#ffff]">Ajudamos você a encontrar</p>
                 <p className="text-[#ffff]">o cabelo dos sonhos.</p>

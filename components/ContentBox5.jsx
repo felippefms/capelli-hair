@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
-import Arrowleft from '@/src/media/arrowleft.png'
-import Arrowright from '@/src/media/arrowright.png'
-import Craseimg from '@/src/media/craseimg.png'
+import Arrowleft from '../src/media/arrowleft.png'
+import Arrowright from '../src/media/arrowright.png'
+import Craseimg from '../src/media/craseimg.png'
 
 export default function ContentBox5() {
   return (

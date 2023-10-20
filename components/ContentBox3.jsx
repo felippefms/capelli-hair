@@ -1,8 +1,8 @@
 import Image from "next/image"
 
-import Qualidadeimg1 from "@/src/media/qualidadeimg1.png"
-import Qualidadeimg2 from "@/src/media/qualidadeimg2.png"
-import Qualidadeimg3 from "@/src/media/qualidadeimg3.png"
+import Qualidadeimg1 from "../src/media/qualidadeimg1.png"
+import Qualidadeimg2 from "../src/media/qualidadeimg2.png"
+import Qualidadeimg3 from "../src/media/qualidadeimg3.png"
 
 export default function ContentBox3(){
     return(

@@ -63,11 +63,15 @@ export default function Menu() {
           <button className="ml-4 xl:hidden">
             <Image src={Closebtn} alt="Fechar" onClick={(() => setMenuOpen(!menuOpen))}></Image>
           </button>
-          <div className="flex">
-            <Image src={Logo} alt="Capelli Hair Logo" className="mr-2 xl:mr-10"></Image>
+          <div className="flex items-center mr-2 xl:mr-10">
+            <Link href={'/'}>
+              <Image src={Logo} alt="Capelli Hair Logo"></Image>
+            </Link>
           </div>
-          <button className="pr-4  xl:p-0">
-            <Image src={Carrinhoimg} alt="Carrinho" className="w-7 xl:hidden"></Image>
+          <button className="pr-4 xl:p-0">
+            <Link href='/carrinho'>
+              <Image src={Carrinhoimg} alt="Carrinho" className="w-7 xl:hidden"></Image>
+            </Link>
           </button>
         </div>
 
@@ -123,7 +127,9 @@ export default function Menu() {
             <Image src={Searchimgdsktp} alt="Pesquisar" className="w-7 h-7"></Image>
           </button>
           <button className="pr-4 xl:p-0">
-            <Image src={Carrinhoimg} alt="Carrinho" className="w-7 h-7 max-xl:hidden"></Image>
+            <Link href='/carrinho'>
+              <Image src={Carrinhoimg} alt="Carrinho" className="w-7 h-7 max-xl:hidden"></Image>
+            </Link>
           </button>
           <button>
             <Image src={Instaimg} alt="Instagram" className="w-7 h-7"></Image>

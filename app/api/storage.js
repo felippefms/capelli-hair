@@ -1,5 +1,6 @@
-const USER = "User";
-const TOKEN = "Token";
+'use client'
+const USER = "user";
+const TOKEN = "token";
 
 const StorageService = {
   saveUser: (user) => {
@@ -18,7 +19,7 @@ const StorageService = {
 
   getUser: () => {
     const userJSON = localStorage.getItem(USER);
-    return userJSON ? JSON.parse(userJSON) : null;
+    return userJSON && JSON.parse(userJSON);
   },
 
   hasToken: () => {
@@ -27,7 +28,7 @@ const StorageService = {
 
   getUserRole: () => {
     const user = StorageService.getUser();
-    return user ? user.role : '';
+    return user && user.role;
   },
 
   isAdminLoggedIn: () => {

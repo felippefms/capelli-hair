@@ -1,7 +1,7 @@
 import { instance } from "./api";
 import StorageService from "./storage";
 
-export const HandleLogin = (email, password) => {
+export function HandleLogin (email, password){
     const userData = {
         email,
         password,
@@ -13,6 +13,11 @@ export const HandleLogin = (email, password) => {
             const bearerToken = response.data.jwtToken;
             // guarda o token no localstorage
             StorageService.saveToken(bearerToken);
+            // coleta o user inteiro de dentro do body da response
+            const user = response.data;
+            // guarda o user no localstorage
+            StorageService.saveUser(user);
+
             if(response.data.role === "ADMIN"){
                 window.location.href = '/admin-page'
             } else {
@@ -20,11 +25,11 @@ export const HandleLogin = (email, password) => {
             }
         })
         .catch(() => {
-            console.log(Response.error);
+            console.log();
         });
 };
 
-export const HandleSignUp = (fullName, phone, email, password) => {
+export function HandleSignUp(fullName, phone, email, password){
 
     const userData = {
         fullName,
@@ -39,10 +44,29 @@ export const HandleSignUp = (fullName, phone, email, password) => {
             window.location.href = '/'
         })
         .catch(() => {
-            console.log(Response.error);
+            console.log();
         });
 };
 
-export const createAuthorizationHeader = () => {
-    let authHeader
-}
+export function GetAllUsers(callback) {
+    const token = CreateAuthorizationHeader();
+
+    instance.get('/api/user', {
+        headers: {
+            Authorization: token
+        }
+    })
+        .then((response) => {
+            const usersList = response.data
+            callback(usersList);
+        })
+        .catch(() => {
+            console.log();
+        });
+};
+
+export function CreateAuthorizationHeader(){
+    const token = StorageService.getToken();
+
+    return `Bearer ${token}`;
+};

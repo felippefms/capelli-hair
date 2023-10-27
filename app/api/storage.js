@@ -1,34 +1,33 @@
 'use client'
-const USER = "user";
-const TOKEN = "token";
+
+import Cookies from "js-cookie";
 
 const StorageService = {
   saveUser: (user) => {
-    localStorage.removeItem(USER);
-    localStorage.setItem(USER, JSON.stringify(user));
+    Cookies.remove('user');
+    Cookies.set('user', user);
   },
-
+  
   saveToken: (token) => {
-    localStorage.removeItem(TOKEN);
-    localStorage.setItem(TOKEN, token);
+    Cookies.remove('token');
+    Cookies.set('token', token);
   },
-
+  
   getToken: () => {
-    return localStorage.getItem(TOKEN);
+    return Cookies.get('token');
   },
 
   getUser: () => {
-    const userJSON = localStorage.getItem(USER);
-    return userJSON && JSON.parse(userJSON);
+    return Cookies.get('user');
   },
 
   hasToken: () => {
-    return !!localStorage.getItem(TOKEN);
+    return !!Cookies.get('token');
   },
 
   getUserRole: () => {
     const user = StorageService.getUser();
-    return user && user.role;
+    return user;
   },
 
   isAdminLoggedIn: () => {
@@ -40,8 +39,8 @@ const StorageService = {
   },
 
   logout: () => {
-    localStorage.removeItem(TOKEN);
-    localStorage.removeItem(USER);
+    Cookies.remove('token');
+    Cookies.remove('user');
   },
 };
 

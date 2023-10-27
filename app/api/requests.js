@@ -1,5 +1,6 @@
 import { instance } from "./api";
 import StorageService from "./storage";
+import Cookies from 'js-cookie';
 
 export function HandleLogin (email, password){
     const userData = {
@@ -9,14 +10,11 @@ export function HandleLogin (email, password){
 
     instance.post('/login', userData)
         .then((response) => {
-            // coleta o token de dentro do body da response
             const bearerToken = response.data.jwtToken;
-            // guarda o token no localstorage
-            StorageService.saveToken(bearerToken);
-            // coleta o user inteiro de dentro do body da response
-            const user = response.data;
-            // guarda o user no localstorage
+            const user = response.data.role;
+
             StorageService.saveUser(user);
+            StorageService.saveToken(bearerToken);
 
             if(response.data.role === "ADMIN"){
                 window.location.href = '/admin-page'
@@ -40,9 +38,13 @@ export function HandleSignUp(fullName, phone, email, password){
 
     instance.post('/register', userData)
         .then(() => {
-            StorageService.saveToken(token);
+            Cookies.remove('token','user');
+
+            Cookies.set('token', bearerToken, { expires: 5 });
+            Cookies.set('user', userType, { expires: 5 });
+
             window.location.href = '/'
-        })
+    })
         .catch(() => {
             console.log();
         });
@@ -51,22 +53,23 @@ export function HandleSignUp(fullName, phone, email, password){
 export function GetAllUsers(callback) {
     const token = CreateAuthorizationHeader();
 
-    instance.get('/api/user', {
-        headers: {
-            Authorization: token
-        }
-    })
-        .then((response) => {
-            const usersList = response.data
-            callback(usersList);
+    if (StorageService.isAdminLoggedIn() === true) {
+        instance.get('/api/user', {
+            headers: {
+                Authorization: token
+            }
         })
-        .catch(() => {
-            console.log();
-        });
+            .then((response) => {
+                const usersList = response.data
+                callback(usersList);
+            })
+            .catch(() => {
+                console.log();
+            });
+    }
 };
 
 export function CreateAuthorizationHeader(){
-    const token = StorageService.getToken();
-
+    const token = Cookies.get('token')
     return `Bearer ${token}`;
 };

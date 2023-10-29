@@ -93,7 +93,7 @@ export default function Menu() {
             <Link href="/">Encontrar minha cor</Link>
           </li>
           <li>
-            <Link href="/">Quem somos</Link>
+            <Link href="/quem-somos">Quem somos</Link>
           </li>
           <li>
             <Link href="/">Fale conosco</Link>

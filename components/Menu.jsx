@@ -55,17 +55,21 @@ export default function Menu() {
 
   return (
     <div className="flex">
-      <button onClick={(() => setMenuOpen(!menuOpen))} className="ml-6">
-        <Image src={Menubtn} alt="Menu"></Image>
-      </button>
+      <div className="flex justify-center items-center">
+        <button onClick={(() => setMenuOpen(!menuOpen))} className="ml-6">
+          <Image src={Menubtn} alt="Menu"></Image>
+        </button>
+      </div>
 
       <nav
         id="menu"
         className={`h-screen w-full absolute z-30 bg-[#F1E0CE] ${menuOpen ? "animate-fadein" : "hidden"} xl:flex xl:flex-row xl:h-auto xl:items-center xl:justify-center xl:bg-[#fff]`}>
         <div className="flex flex-row justify-between h-20 flex-shrink-0 xl:m-0">
-          <button className="ml-4 xl:hidden">
-            <Image src={Closebtn} alt="Fechar" onClick={(() => setMenuOpen(!menuOpen))}></Image>
-          </button>
+          <div className="flex justify-center items-center">
+            <button className="ml-4 xl:hidden">
+              <Image src={Closebtn} alt="Fechar" onClick={(() => setMenuOpen(!menuOpen))}></Image>
+            </button>
+          </div>
           <div className="flex items-center mr-2 xl:mr-10">
             <Link href={'/'}>
               <Image src={Logo} alt="Capelli Hair Logo"></Image>
@@ -143,11 +147,11 @@ export default function Menu() {
       <div id="loginmodal" className={`w-full absolute ${loginOpen ? "animate-fadein" : "hidden"} z-30`}>
           <div className="lg:flex lg:items-center lg:justify-center lg:h-screen lg:bg-[#2e2e2e7e]">
             <div className="flex flex-col w-full h-screen bg-[#F1E0CE] lg:bg-[#fff] lg:w-[50vh] lg:mt-11 lg:h-auto lg:rounded-[24px]">
-                <div className="flex flex-row justify-center h-20 items-center lg:justify-start">
+                <div className="flex flex-row justify-center items-center mt-5 lg:justify-start">
                     <button onClick={(() => setLoginOpen(!loginOpen))} className="absolute left-0 ml-4 lg:relative lg:mr-24">
                         <Image src={CloseBtn} alt="Fechar"></Image>
                     </button>
-                    <p className="text-lg text-[#9D8168]">Seja bem-vinda a</p>
+                    <p className="text-lg cursor-default text-[#9D8168]">Seja bem-vinda a</p>
                 </div>
                 <div className="flex justify-center mb-12">
                     <Image src={Logo} alt="Capelli Hair Logo"></Image>
@@ -169,7 +173,7 @@ export default function Menu() {
                         <button onClick={() => HandleLogin(email, password)} className="flex justify-center w-full rounded-lg py-[10px] text-lg text-[#ffff] bg-[#9D8168]">
                             Entrar
                         </button>
-                        <p className="text-lg text-[#9D8168] my-8">
+                        <p className="text-lg cursor-default text-[#9D8168] my-8">
                             Ou
                         </p>
                         <button className="flex w-full py-[10px] justify-center relative rounded-lg text-[#ffff] bg-[#1877F2]">
@@ -186,7 +190,7 @@ export default function Menu() {
                         </button>
                     </div>
                     <div className="flex justify-center mt-8 whitespace-nowrap lg:mb-[36px]">
-                        <p className="text-[#888]">Ainda não está na Capelli Hair?</p>
+                        <p className="cursor-default text-[#888]">Ainda não está na Capelli Hair?</p>
                         <button onClick={(() => setSignUpOpen(!signUpOpen))} className="ml-2 underline text-[#9D8168]">Crie uma conta</button>
                     </div>
                 </div>    

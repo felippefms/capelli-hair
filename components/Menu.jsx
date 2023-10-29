@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from 'next/navigation';
 import Link from "next/link";
 import Image from "next/image";
 
@@ -30,10 +31,12 @@ export default function Menu() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
 
+  const activeMenuItem = usePathname();
+
   const [showPassword, setShowPassword] = useState(false);
 
   const [fullName, setFullName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState(''); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -83,19 +86,19 @@ export default function Menu() {
         </div>
 
         <ul className="flex flex-col items-center space-y-10 pt-10 text-[#2E2E2E] text-lg xl:text-base xl:flex-row xl:mr-8 xl:p-0 xl:space-y-0 xl:space-x-[25px] whitespace-nowrap">
-          <li>
+          <li className={activeMenuItem === "/" ? "text-[#9D8168] font-[700]" : ""}>
             <Link href="/">Início</Link>
           </li>
-          <li>
+          <li className={activeMenuItem === "cabelos" ? "text-[#9D8168] font-[700]" : ""}>
             <Link href="/">Cabelos</Link>
           </li>
-          <li>
+          <li className={activeMenuItem === "encontrar-cor" ? "text-[#9D8168] font-[700]" : ""}>
             <Link href="/">Encontrar minha cor</Link>
           </li>
-          <li>
+          <li className={activeMenuItem === "/quem-somos" ? "text-[#9D8168] font-[700]" : ""}>
             <Link href="/quem-somos">Quem somos</Link>
           </li>
-          <li>
+          <li className={activeMenuItem === "fale-conosco" ? "text-[#9D8168] font-[700]" : ""}>
             <Link href="/">Fale conosco</Link>
           </li>
         </ul>

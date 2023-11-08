@@ -93,16 +93,16 @@ export default function Menu() {
           <li className={activeMenuItem === "/" ? "text-[#9D8168] font-[700]" : ""}>
             <Link href="/">Início</Link>
           </li>
-          <li className={activeMenuItem === "cabelos" ? "text-[#9D8168] font-[700]" : ""}>
-            <Link href="/">Cabelos</Link>
+          <li className={activeMenuItem === "/cabelos" ? "text-[#9D8168] font-[700]" : ""}>
+            <Link href="/cabelos">Cabelos</Link>
           </li>
-          <li className={activeMenuItem === "encontrar-cor" ? "text-[#9D8168] font-[700]" : ""}>
+          <li className={activeMenuItem === "/encontrar-cor" ? "text-[#9D8168] font-[700]" : ""}>
             <Link href="/">Encontrar minha cor</Link>
           </li>
           <li className={activeMenuItem === "/quem-somos" ? "text-[#9D8168] font-[700]" : ""}>
             <Link href="/quem-somos">Quem somos</Link>
           </li>
-          <li className={activeMenuItem === "fale-conosco" ? "text-[#9D8168] font-[700]" : ""}>
+          <li className={activeMenuItem === "/fale-conosco" ? "text-[#9D8168] font-[700]" : ""}>
             <Link href="/">Fale conosco</Link>
           </li>
         </ul>

@@ -14,7 +14,7 @@ export default function ContentBox10(){
                 <p className='text-[#888888]'>Explore nossas coleções de mega hair e encontre tons deslumbrantes, desde os clássicos castanhos e loiros até os dourados. Seja a sua própria obra-prima.</p>
             </div>
             <div className='w-[60px] h-[60px] mt-14 mb-[56px] md:mb-[96px]'>
-                <Image src={downarrow}></Image>
+                <Image src={downarrow} alt='seta abaixo'></Image>
             </div>
         </div>
     )

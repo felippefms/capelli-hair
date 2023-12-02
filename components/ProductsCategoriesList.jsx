@@ -50,7 +50,6 @@ const textButtonColors = ["#FFFFFF", "#9D8168", "#FFFFFF"];
                             </div>
                         </div>
                     </div>
-                    
                 ))}
             </div>
         </div>

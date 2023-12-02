@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 
-import ExclusiveColorsBox from "./ExclusiveColorsBox"
+import ProductBox from "./ProductBox"
 
 import Fotomodelo2 from "../src/media/fotomodelo2.png"
 import Fotomodelo3 from "../src/media/fotomodelo3.png"
@@ -24,12 +24,12 @@ export default function ContentBox2(){
             </div>
             <div className="flex flex-row max-lg:flex-col justify-center">
                 <div className="flex justify-center">
-                    <ExclusiveColorsBox excluivecolorimg={Fotomodelo2} alttxt="Modelo Loiro Claro" cabeloamostra={LoiroClaro} altcabeloamostra="LoiroClaro" nome="Loiro Claro" valor={329700}></ExclusiveColorsBox>
-                    <ExclusiveColorsBox excluivecolorimg={Fotomodelo3} alttxt="Modelo Castanho Escuro" cabeloamostra={CastanhoEscuro} altcabeloamostra="CastanhoEscuro" nome="Castanho Escuro" valor={329700}></ExclusiveColorsBox>
+                    <ProductBox colorimg={Fotomodelo2} alttxt="Modelo Loiro Claro" cabeloamostra={LoiroClaro} altcabeloamostra="LoiroClaro" nome="Loiro Claro" valor={329700}></ProductBox>
+                    <ProductBox colorimg={Fotomodelo3} alttxt="Modelo Castanho Escuro" cabeloamostra={CastanhoEscuro} altcabeloamostra="CastanhoEscuro" nome="Castanho Escuro" valor={329700}></ProductBox>
                 </div>
                 <div className="flex justify-center">
-                    <ExclusiveColorsBox excluivecolorimg={Fotomodelo4} alttxt="Modelo Castanho Claro" cabeloamostra={CastanhoClaro} altcabeloamostra="CastanhoClaro" nome="Castanho Claro" valor={329700}></ExclusiveColorsBox>
-                    <ExclusiveColorsBox excluivecolorimg={Fotomodelo5} alttxt="Modelo Cinza Escuro" cabeloamostra={CinzaEscuro} altcabeloamostra="CinzaEscuro" nome="Cinza Escuro" valor={329700}></ExclusiveColorsBox>
+                    <ProductBox colorimg={Fotomodelo4} alttxt="Modelo Castanho Claro" cabeloamostra={CastanhoClaro} altcabeloamostra="CastanhoClaro" nome="Castanho Claro" valor={329700}></ProductBox>
+                    <ProductBox colorimg={Fotomodelo5} alttxt="Modelo Cinza Escuro" cabeloamostra={CinzaEscuro} altcabeloamostra="CinzaEscuro" nome="Cinza Escuro" valor={329700}></ProductBox>
                 </div>
             </div>
             <div className="flex justify-center mt-16 mb-14">

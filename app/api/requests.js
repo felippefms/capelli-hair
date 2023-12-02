@@ -99,22 +99,66 @@ export function DeleteUser(user, callback) {
 {/* PEGAR A LISTA DE CATEGORIAS */}
 
 export function CategoryList(callback) {
-    const token = CreateAuthorizationHeader();
-
-    if (StorageService.isAdminLoggedIn() === true) {
-        instance.get('/api/categoria', {
-            headers: {
-                Authorization: token
-            }
+    instance.get('/client/categoria')
+        .then((response) => {
+            const categoryList = response.data
+            callback(categoryList);
         })
-            .then((response) => {
-                const categoryList = response.data
-                callback(categoryList);
-            })
-            .catch(() => {
-                console.log();
-            });
-    }
+        .catch(() => {
+            console.log();
+        });
+};
+
+{/* PEGAR UMA CATEGORIA POR ID */}
+
+export function CategoryById(id, callback) {
+    instance.get(`/client/categoria/${id}`)
+        .then((response) => {
+            const category = response.data
+            callback(category);
+        })
+        .catch(() => {
+            console.log();
+        });
+};
+
+{/* PEGAR UMA CATEGORIA PELO NOME */}
+
+export function CategoryByName(nome, callback) {
+    instance.get(`/client/buscar-por-nome/categoria/${nome}`)
+        .then((response) => {
+            const category = response.data
+            callback(category);
+        })
+        .catch(() => {
+            console.log();
+        });
+};
+
+{/* PEGAR TODOS OS PRODUTOS DE UMA CATEGORIA PELO ID */}
+
+export async function ProductsByCategoryId(id, callback) {
+    instance.get(`/client/produto/lista-produtos-por-categoria/${id}`)
+        .then((response) => {
+            const products = response.data
+            callback(products);
+        })
+        .catch(() => {
+            console.log();
+        });
+};
+
+{/* PEGAR TODOS OS PRODUTOS DE UMA CATEGORIA PELO NOME */}
+
+export async function ProductsByCategoryName(nome, callback) {
+    instance.get(`/client/produto/lista-produtos-por-nomeCategoria/${nome}`)
+        .then((response) => {
+            const products = response.data
+            callback(products);
+        })
+        .catch(() => {
+            console.log();
+        });
 };
 
 {/* CRIAR CATEGORIA (ADMIN) */}
@@ -159,26 +203,31 @@ export function DeleteCategory(category, callback) {
     }
 };
 
-{/* PEGAR A LISTA DE PRODUTOS */}
+{/* PEGAR A LISTA DE TODOS OS PRODUTOS */}
 
 export function ProductsList(callback) {
-    const token = CreateAuthorizationHeader();
-
-    if (StorageService.isAdminLoggedIn() === true) {
-        instance.get('/api/produto', {
-            headers: {
-                Authorization: token
-            }
+    instance.get('/client/produto')
+        .then((response) => {
+            const productsList = response.data
+            callback(productsList);
         })
-            .then((response) => {
-                const productsList = response.data
-                callback(productsList);
-            })
-            .catch(() => {
-                console.log();
-            });
-    }
+        .catch(() => {
+            console.log();
+        });
 };
+
+{/* PEGAR UM PRODUTO PELO ID */}
+
+export function ProductById(id, callback) {
+    instance.get(`/client/produto/${id}`)
+    .then((response) => {
+        const product = response.data
+        callback(product);
+    })
+    .catch(() => {
+        console.log();
+    });
+}
 
 {/* CRIAR UM PRODUTO (ADMIN) */}
 

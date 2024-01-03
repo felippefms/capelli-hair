@@ -14,9 +14,11 @@ export function HandleLogin (email, password){
         .then((response) => {
             const bearerToken = response.data.jwtToken;
             const user = response.data.role;
+            const id = response.data.id;
 
             StorageService.saveUser(user);
             StorageService.saveToken(bearerToken);
+            StorageService.saveId(id);
 
             if(response.data.role === "ADMIN"){
                 window.location.href = '/admin-page'
@@ -182,7 +184,7 @@ export function CreateCategory(callback) {
     }
 };
 
-{/* DELETAR CATEGORIA */}
+{/* DELETAR CATEGORIA (ADMIN) */}
 
 export function DeleteCategory(category, callback) {
     const token = CreateAuthorizationHeader();
@@ -275,6 +277,124 @@ export function DeleteProduct(product, callback) {
             });
     }
 };
+
+ {/* PEGAR OS BOTÕES DE TAMANHO DOS PRODUTOS */}
+
+ export function getSizeButtons(callback) {
+    instance.get('/tamanho')
+    .then((response)=>{
+        const sizes = response.data;
+        callback(sizes);
+    })
+    .catch(()=>{
+        console.log();
+    })
+ }
+
+ {/* PEGAR OS BOTÕES DE VOLUME DOS PRODUTOS*/}
+
+ export function getVolumeButtons(callback) {
+    instance.get('/volume')
+    .then((response)=>{
+        const volumes = response.data;
+        callback(volumes);
+    })
+    .catch(()=>{
+        console.log();
+    })
+ }
+
+  {/* PEGAR OS BOTÕES DE TÉCNICA DOS PRODUTOS */}
+
+  export function getTecnicaButtons(callback) {
+    instance.get('/tecnica')
+    .then((response)=>{
+        const tecnicas = response.data;
+        callback(tecnicas);
+    })
+    .catch(()=>{
+        console.log();
+    })
+ }
+
+   {/* CRIAR OS BOTÕES DOS PRODUTOS */}
+
+   export function createProductButtons(type, botaoValue) {
+    const token = CreateAuthorizationHeader();
+    
+    if (StorageService.isAdminLoggedIn() === true) {
+        if (type === 'volume') {
+            instance.post('/admin/volume', { params : {gramas : botaoValue }},{
+                headers: {
+                    Authorization: token
+                }
+            })
+            .then((response)=>{
+    
+            })
+            .catch(()=>{
+                console.log();
+            })
+        } else if (type === 'tecnica') {
+            instance.post(`/admin/tecnica?nome=${botaoValue}`)
+            .then((response)=>{
+    
+            })
+            .catch(()=>{
+                console.log();
+            })
+        } else if (type === 'tamanho') {
+            instance.post(`/admin/tamanho?cm=${botaoValue}`)
+            .then((response)=>{
+    
+            })
+            .catch(()=>{
+                console.log();
+            })
+        }
+    }
+ }
+
+ {/* ADICIONAR UM PRODUTO AO CARRINHO (EM PROGRESSO) */}
+
+export function AddProductChart(id, callback) {
+    const token = CreateAuthorizationHeader();
+
+    if (StorageService.isUserLoggedIn() === true) {
+        instance.post(`/api/carrinho/carrinhos/${id}`, {
+            headers: {
+                Authorization: token
+            }
+        })
+        .then((response)=>{
+            callback(response.data);
+        })
+        .catch(()=>{
+            console.log();
+        })
+    }
+}
+
+ {/* RETORNA O CARRINHO DO USUÁRIO (EM PROGRESSO) */}
+
+ export function getChart(id, callback) {
+    const token = CreateAuthorizationHeader();
+
+    if (StorageService.isUserLoggedIn() === true) {
+        instance.get(`/api/carrinho/carrinhos/${id}`, {
+            headers: {
+                Authorization: token
+            }
+        })
+        .then((response)=>{
+            const carrinho = response.data;
+            callback(carrinho);
+        })
+        .catch(()=>{
+            console.log();
+        })
+    }
+}
 
 {/* HEADER DE AUTENTICAÇÃO PARA USAR NAS REQUESTS */}
 

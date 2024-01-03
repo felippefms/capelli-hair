@@ -12,6 +12,11 @@ const StorageService = {
     Cookies.remove('token');
     Cookies.set('token', token);
   },
+
+  saveId: (id) => {
+    Cookies.remove('id');
+    Cookies.set('id', id);
+  },
   
   getToken: () => {
     return Cookies.get('token');

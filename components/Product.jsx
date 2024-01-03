@@ -5,34 +5,58 @@ import Image from "next/image"
 
 import ImageViewer from "./ImageViewer";
 import arrowleft from "../src/media/arrowleft.png";
-import minus from "../src/media/minus.png";
-import plus from "../src/media/plus.png";
-import shareproducticon from "../src/media/shareproducticon.png";
-import downarrow from "../src/media/downarrow2.svg";
 import uparrow from "../src/media/uparrow2.png";
+import downarrow from "../src/media/downarrow3.png";
+import shareproducticon from "../src/media/shareproducticon.png";
+import QuantityChanger from "./QuantityChanger";
+import ProductValue from "./ProductValue";
+import SizeButtons from "./SizeButtons";
+import VolumeButtons from "./VolumeButtons";
+import TecnicaButtons from "./TecnicaButtons";
+import { useRouter } from "next/navigation";
+import { getVolumeButtons, getSizeButtons, getTecnicaButtons } from "../app/api/requests";
 
 export default function Product(produto){
-    const [produtoFinalizado, setProdutoFinalizado] = useState();
+    const [sizeButtonsList, setSizeButtonsList] = useState([]);
+    const [volumeButtonsList, setVolumeButtonsList] = useState([]);
+    const [tecnicaButtonsList, setTecnicaButtonsList] = useState([]);
+    const [showhide, setShowHide] = useState(false);
+    const [showhide2, setShowHide2] = useState(false);
+    const [showhide3, setShowHide3] = useState(false);
+    const [showhide4, setShowHide4] = useState(false);
+    const [selectedVolume, setSelectedVolume] = useState(null);
+    const [selectedSize, setSelectedSize] = useState(null);
+    const [selectedTecnica, setSelectedTecnica] = useState(null);
+    const [baseValue, setBaseValue] = useState(produto.produto.price);
+    const [actualValue, setActualValue] = useState(produto.produto.price.toFixed(2));
     const [quantity, setQuantity] = useState(1);
-    const minQuantity = 1;
-    const maxQuantity = 10;
-
-    const handleDecrease = () => {
-        if (quantity > minQuantity) {
-          setQuantity(quantity - 1);
-        }
-      };
+    const router = useRouter();
+    const [produtoFinalizado, setProdutoFinalizado] = useState({
+        id : produto.produto.id,
+        valor : actualValue,
+        quantidade : quantity,
+        tamanho : null,
+        volume : null,
+        tecnica : null,
+    });
     
-      const handleIncrease = () => {
-        if (quantity < maxQuantity) {
-          setQuantity(quantity + 1);
-        }
-      };
+    useEffect(() => {
+        getSizeButtons((sizes) => {
+            setSizeButtonsList(sizes);
+        });
+    
+        getVolumeButtons((volumes) => {
+            setVolumeButtonsList(volumes);
+        });
+    
+        getTecnicaButtons((tecnicas) => {
+            setTecnicaButtonsList(tecnicas);
+        });
+    }, []);
 
-    const formattedPrice = new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }).format(produto.produto.price);
+    useEffect(() => {
+        console.log(produtoFinalizado);
+    },[produtoFinalizado])
 
     return(
         <div className="flex flex-col lg:flex-row items-center justify-center mt-3 lg:mt-12">
@@ -44,50 +68,47 @@ export default function Product(produto){
                 </div>
 
                 <div className="flex flex-col px-2 max-lg:hidden w-[400px]">
-                    <div className="">
-                        <button className="flex items-center text-[#888] font-light underline">
-                            <Image src={arrowleft}></Image>
-                            {produto.produto.cor.categoria.nome}
+                    <div>
+                        <button onClick={()=> router.back()} className="flex items-center text-[#888] font-light underline">
+                            <Image src={arrowleft} alt="Retroceder"></Image>
+                            {produto.produto.cor.nome}
                         </button>
                         <p className="mt-6 max-md:mb-[32px] text-xl font-bold text-[#9D8168]">{produto.produto.name}</p>
                     </div>
 
                     <div className="lg:mt-12">
                         <p><b>Tamanho.</b> <b className="text-[#9D8168]">Qual é o melhor para você?</b></p>
+                        <div className="flex items-center flex-wrap max-w-[380px] mt-6 justify-left">
+                            {sizeButtonsList.map((content, index)=>(
+                                <SizeButtons key={index} content={content.cm} selected={selectedSize} setSelected={setSelectedSize} setProdutoFinalizado={setProdutoFinalizado}></SizeButtons>
+                            ))}
+                        </div>
                     </div>
 
-                    <div>
-
-                    </div>
-
-                    <div>
+                    <div className="mt-16">
                         <p><b>Volume.</b> <b className="text-[#9D8168]">Quantas gramas você deseja?</b></p>
+                        <div className="flex items-center mt-6 flex-wrap max-w-[380px] justify-left">
+                            {volumeButtonsList.map((content, index)=>(
+                                <VolumeButtons key={index} content={content.gramas} selected={selectedVolume} setSelected={setSelectedVolume} setProdutoFinalizado={setProdutoFinalizado}></VolumeButtons>
+                            ))}
+                        </div>
                     </div>
 
-                    <div>
-
-                    </div>
-
-                    <div>
+                    <div className="mt-14">
                         <p><b>Técnica.</b> <b className="text-[#9D8168]">Escolha a que mais combina com você.</b></p>
-                    </div>
-
-                    <div className="mt-12">
-                        <p className="text-[#888]">Quantidade</p>
-                        <div className="flex w-[120px] h-[40px] items-center justify-between mt-4 p-2 rounded-[8px] bg-[#F5F5F5]">
-                            <button onClick={handleDecrease}>
-                                <Image src={minus}></Image>
-                            </button>
-                            <p>{quantity}</p>
-                            <button onClick={handleIncrease}>
-                                <Image src={plus}></Image>
-                            </button>
+                        <div className="flex items-center mt-6 flex-wrap max-w-[380px] justify-left">
+                            {tecnicaButtonsList.map((content, index)=>(
+                                <TecnicaButtons key={index} content={content.nome} selected={selectedTecnica} setSelected={setSelectedTecnica} setProdutoFinalizado={setProdutoFinalizado}></TecnicaButtons>
+                            ))}
                         </div>
                     </div>
 
                     <div className="mt-12">
-                        <p>Valor total</p>
-                        <p className="mt-2 text-[#2E2E2E] font-[600] text-2xl">{formattedPrice}</p>
+                        <QuantityChanger baseValue={baseValue} setProdutoFinalizado={setProdutoFinalizado} setQuantity={setQuantity} actualValue={actualValue} setActualValue={setActualValue} quantity={quantity}></QuantityChanger>
+                    </div>
+
+                    <div className="mt-12">
+                        <ProductValue actualValue={actualValue}></ProductValue>
                     </div>
 
                     <div className="mt-10">
@@ -98,7 +119,7 @@ export default function Product(produto){
 
                     <div className="flex mt-10">
                         <button className="flex items-center text-center">
-                            <Image src={shareproducticon}></Image>
+                            <Image src={shareproducticon} alt="Compartilhar"></Image>
                             <p className="text-[#9D8168] underline">Compartilhar</p>
                         </button>
                     </div>
@@ -115,19 +136,69 @@ export default function Product(produto){
                         <p className="mt-6">E se ainda estiver em dúvida, não hesite em entrar em contato com nossas especialistas. Elas estão prontas para ajudar!</p>
                     </div>
 
-                    <div>
+                    <div className="mt-10">
+                        <div>
+                            <div className="flex justify-between mb-4">
+                                <p className="text-[#888]">Sugestão de volume</p>
+                                <button onClick={() => setShowHide(!showhide)}>
+                                    <Image src={showhide === true ? uparrow : downarrow} width={20} height={20} className="mostrar/esconder" alt="Mostrar/Esconder"></Image>
+                                </button>
+                            </div>
+                            <div className={`${showhide === true ? 'block' : 'hidden'} my-4`}>
+                                <p className="text-[#888]">Embalamos o seu produto com todo o carinho e proteção. Enviamos para todo o Brasil, calcule o frete e prazos na página de finalização de compra.</p>
+                            </div>
+                            <hr className="bg-[#000]"></hr>
+                        </div>
 
+                        <div>
+                            <div className="flex justify-between my-4">
+                                <p className="text-[#888]">Técnicas</p>
+                                <button onClick={() => setShowHide2(!showhide2)}>
+                                    <Image src={showhide2 === true ? uparrow : downarrow} width={20} height={20} className="mostrar/esconder" alt="Mostrar/Esconder"></Image>
+                                </button>
+                            </div>
+                            <div className={`${showhide2 === true ? 'block' : 'hidden'} my-4`}>
+                                <p className="text-[#888]">Embalamos o seu produto com todo o carinho e proteção. Enviamos para todo o Brasil, calcule o frete e prazos na página de finalização de compra.</p>
+                            </div>
+                            <hr className="bg-[#000]"></hr>
+                        </div>
+
+                        <div>
+                            <div className="flex justify-between my-4">
+                                <p className="text-[#888]">Cabelos naturais</p>
+                                <button onClick={() => setShowHide3(!showhide3)}>
+                                    <Image src={showhide3 === true ? uparrow : downarrow} width={20} height={20} className="mostrar/esconder" alt="Mostrar/Esconder"></Image>
+                                </button>
+                            </div>
+                            <div className={`${showhide3 === true ? 'block' : 'hidden'} my-4`}>
+                                <p className="text-[#888]">Embalamos o seu produto com todo o carinho e proteção. Enviamos para todo o Brasil, calcule o frete e prazos na página de finalização de compra.</p>
+                            </div>
+                            <hr className="bg-[#000]"></hr>
+                        </div>
+
+                        <div>
+                            <div className="flex justify-between my-4">
+                                <p className="text-[#888]">Envio para todo o Brasil</p>
+                                <button onClick={() => setShowHide4(!showhide4)}>
+                                    <Image src={showhide4 === true ? uparrow : downarrow} width={20} height={20} className="mostrar/esconder" alt="Mostrar/Esconder"></Image>
+                                </button>
+                            </div>
+                            <div className={`${showhide4 === true ? 'hidden' : 'block'} my-4`}>
+                                <p className="text-[#888]">Embalamos o seu produto com todo o carinho e proteção. Enviamos para todo o Brasil, calcule o frete e prazos na página de finalização de compra.</p>
+                            </div>
+                            <hr className="bg-[#000]"></hr>
+                        </div>
                     </div>
                 </div>
             </div>
 
 
-    {/* //MOBILE VERSION BELOW */}
+            {/* MOBILE VERSION BELOW */}
             <div className="flex flex-col px-2 lg:hidden">
                 <div className="mt-12">
-                    <button className="flex items-center text-[#888] font-light underline">
-                        <Image src={arrowleft}></Image>
-                        {produto.produto.cor.categoria.nome}
+                    <button onClick={()=> router.back()} className="flex items-center text-[#888] font-light underline">
+                        <Image src={arrowleft} alt="Retroceder"></Image>
+                        {produto.produto.cor.nome}
                     </button>
                     <p className="mt-6 max-md:mb-[32px] text-xl font-bold text-[#9D8168]">{produto.produto.name}</p>
                 </div>
@@ -136,42 +207,39 @@ export default function Product(produto){
                     <ImageViewer></ImageViewer>
                 </div>
 
-                <div>
+                <div className="flex flex-col items-center mt-11 mb-8">
                     <p><b>Tamanho.</b> <b className="text-[#9D8168]">Qual é o melhor para você?</b></p>
+                    <div className="flex items-center flex-wrap max-w-[360px] justify-center">
+                        {sizeButtonsList.map((content, index)=>(
+                            <SizeButtons key={index} content={content.cm} selected={selectedSize} setSelected={setSelectedSize} setProdutoFinalizado={setProdutoFinalizado}></SizeButtons>
+                        ))}
+                    </div>
                 </div>
 
-                <div>
-
-                </div>
-
-                <div>
+                <div className="flex flex-col items-center mb-8">
                     <p><b>Volume.</b> <b className="text-[#9D8168]">Quantas gramas você deseja?</b></p>
+                    <div className="flex items-center flex-wrap max-w-[360px] justify-center">
+                        {volumeButtonsList.map((content, index)=>(
+                            <VolumeButtons key={index} content={content.gramas} selected={selectedVolume} setSelected={setSelectedVolume} setProdutoFinalizado={setProdutoFinalizado}></VolumeButtons>
+                        ))}
+                    </div>
                 </div>
 
-                <div>
-
-                </div>
-
-                <div>
+                <div className="flex flex-col items-center">
                     <p><b>Técnica.</b> <b className="text-[#9D8168]">Escolha a que mais combina com você.</b></p>
-                </div>
-
-                <div className="mt-12">
-                    <p className="text-[#888]">Quantidade</p>
-                    <div className="flex items-center max-w-max mt-4 p-2 rounded-[8px] space-x-[29.5px] bg-[#F5F5F5]">
-                        <button>
-                            <Image src={minus}></Image>
-                        </button>
-                        <p>1</p>
-                        <button>
-                            <Image src={plus}></Image>
-                        </button>
+                    <div className="flex items-center flex-wrap max-w-[360px] justify-center">
+                        {tecnicaButtonsList.map((content, index)=>(
+                            <TecnicaButtons key={index} content={content.nome} selected={selectedTecnica} setSelected={setSelectedTecnica} setProdutoFinalizado={setProdutoFinalizado}></TecnicaButtons>
+                        ))}
                     </div>
                 </div>
 
                 <div className="mt-12">
-                    <p>Valor total</p>
-                    <p className="mt-2 text-[#2E2E2E] font-[600] text-2xl">R$ {produto.produto.price}</p>
+                    <QuantityChanger baseValue={baseValue} setProdutoFinalizado={setProdutoFinalizado} setQuantity={setQuantity} actualValue={actualValue} setActualValue={setActualValue} quantity={quantity}></QuantityChanger>
+                </div>
+                
+                <div className="mt-12">
+                    <ProductValue actualValue={actualValue}></ProductValue>
                 </div>
 
                 <div className="mt-10">
@@ -182,7 +250,7 @@ export default function Product(produto){
 
                 <div className="flex mt-10">
                     <button className="flex items-center text-center">
-                        <Image src={shareproducticon}></Image>
+                        <Image src={shareproducticon} alt="Compartilhar"></Image>
                         <p className="text-[#9D8168] underline">Compartilhar</p>
                     </button>
                 </div>
@@ -191,7 +259,7 @@ export default function Product(produto){
                     <hr className="text-[#D1D1D1] mt-[46px]"></hr>
                 </div>
 
-                <div className="text-[#888888]">
+                <div className="mt-[40px] text-[#888888]">
                     <p>Vamos lá! Aqui está um guia fácil para escolher seu aplique perfeito:</p>
                     <p className="mt-6"><b className="font-bold text-[#9D8168]">Passo 1: </b>Primeiro, escolha o tamanho que você quer para o seu aplique, ou seja, o quanto ele vai ser comprido.</p>
                     <p className="mt-6"><b className="font-bold text-[#9D8168]">Passo 2:</b> Agora, decida quanto volume você deseja, isso é a quantia de gramas de cabelo. Se você não tem certeza de qual é volume ideal para você, não se preocupe! Dê uma olhada na seção "Volume Sugerido" logo abaixo para algumas dicas.</p>
@@ -199,8 +267,58 @@ export default function Product(produto){
                     <p className="mt-6">E se ainda estiver em dúvida, não hesite em entrar em contato com nossas especialistas. Elas estão prontas para ajudar!</p>
                 </div>
 
-                <div>
+                <div className="mt-10">
+                    <div>
+                        <div className="flex justify-between mb-4">
+                            <p className="text-[#888]">Sugestão de volume</p>
+                            <button onClick={() => setShowHide(!showhide)}>
+                                <Image src={showhide === true ? uparrow : downarrow} width={20} height={20} className="mostrar/esconder" alt="Mostrar/Esconder"></Image>
+                            </button>
+                        </div>
+                        <div className={`${showhide === true ? 'block' : 'hidden'} my-4`}>
+                            <p className="text-[#888]">Embalamos o seu produto com todo o carinho e proteção. Enviamos para todo o Brasil, calcule o frete e prazos na página de finalização de compra.</p>
+                        </div>
+                        <hr className="bg-[#000]"></hr>
+                    </div>
 
+                    <div>
+                        <div className="flex justify-between my-4">
+                            <p className="text-[#888]">Técnicas</p>
+                            <button onClick={() => setShowHide2(!showhide2)}>
+                                <Image src={showhide2 === true ? uparrow : downarrow} width={20} height={20} className="mostrar/esconder" alt="Mostrar/Esconder"></Image>
+                            </button>
+                        </div>
+                        <div className={`${showhide2 === true ? 'block' : 'hidden'} my-4`}>
+                            <p className="text-[#888]">Embalamos o seu produto com todo o carinho e proteção. Enviamos para todo o Brasil, calcule o frete e prazos na página de finalização de compra.</p>
+                        </div>
+                        <hr className="bg-[#000]"></hr>
+                    </div>
+
+                    <div>
+                        <div className="flex justify-between my-4">
+                            <p className="text-[#888]">Cabelos naturais</p>
+                            <button onClick={() => setShowHide3(!showhide3)}>
+                                <Image src={showhide3 === true ? uparrow : downarrow} width={20} height={20} className="mostrar/esconder" alt="Mostrar/Esconder"></Image>
+                            </button>
+                        </div>
+                        <div className={`${showhide3 === true ? 'block' : 'hidden'} my-4`}>
+                            <p className="text-[#888]">Embalamos o seu produto com todo o carinho e proteção. Enviamos para todo o Brasil, calcule o frete e prazos na página de finalização de compra.</p>
+                        </div>
+                        <hr className="bg-[#000]"></hr>
+                    </div>
+
+                    <div>
+                        <div className="flex justify-between my-4">
+                            <p className="text-[#888]">Envio para todo o Brasil</p>
+                            <button onClick={() => setShowHide4(!showhide4)}>
+                                <Image src={showhide4 === true ? uparrow : downarrow} width={20} height={20} className="mostrar/esconder" alt="Mostrar/Esconder"></Image>
+                            </button>
+                        </div>
+                        <div className={`${showhide4 === true ? 'hidden' : 'block'} my-4`}>
+                            <p className="text-[#888]">Embalamos o seu produto com todo o carinho e proteção. Enviamos para todo o Brasil, calcule o frete e prazos na página de finalização de compra.</p>
+                        </div>
+                        <hr className="bg-[#000]"></hr>
+                    </div>
                 </div>
             </div>
         </div>

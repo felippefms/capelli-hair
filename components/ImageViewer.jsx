@@ -58,16 +58,16 @@ export default function ImageViewer(){
                 {modalOpen? 
                     <div className="flex justify-center items-center absolute top-0 left-0 z-30 h-screen w-full bg-[#2e2e2e85]">
                         <button onClick={handleClose} className="absolute top-0 left-0 mt-5 ml-5">
-                            <Image src={imageviewerclose}></Image>
+                            <Image src={imageviewerclose} alt="Fechar"></Image>
                         </button>
                         <button onClick={handlePrevious}>
-                            <Image src={imageviewerprevious}></Image>
+                            <Image src={imageviewerprevious} alt="Anterior"></Image>
                         </button>
                         <div className="w-[600px] h-[800px] relative">
-                            <Image fill src={imageList[currentImageIndex]} />
+                            <Image fill src={imageList[currentImageIndex]} alt="Imagem Atual" />
                         </div>
                         <button onClick={handleNext}>
-                            <Image src={imageviewernext}></Image>
+                            <Image src={imageviewernext} alt="Próxima"></Image>
                         </button>
                     </div> 
                     : 
@@ -89,21 +89,21 @@ export default function ImageViewer(){
 
                 <div className="flex flex-col items-center justify-center max-w-[400px] lg:hidden">
                     <div className="cursor-pointer w-[300px] h-[400px] relative" onClick={() => selectImage(0)}>
-                        <Image fill className="rounded-tl-[10px] rounded-tr-[10px]" src={imageList[0]}></Image>
+                        <Image fill alt="Imagem" className="rounded-tl-[10px] rounded-tr-[10px]" src={imageList[0]}></Image>
                     </div>
                     <div className="flex w-[300px]">
                         <div className="cursor-pointer" onClick={() => selectImage(1)}>
-                            <Image className="rounded-bl-[10px]" src={imageList[1]?imageList[1]:imageList[0]}></Image>
+                            <Image className="rounded-bl-[10px]" alt="Imagem" src={imageList[1]?imageList[1]:imageList[0]}></Image>
                         </div>
                         <div className="cursor-pointer" onClick={() => selectImage(2)}>
-                            <Image src={imageList[2]?imageList[2]:imageList[0]}></Image>
+                            <Image src={imageList[2]?imageList[2]:imageList[0]} alt="Imagem"></Image>
                         </div>
                         <div className="cursor-pointer" onClick={() => selectImage(3)}>
-                            <Image src={imageList[3]?imageList[3]:imageList[0]}></Image>
+                            <Image src={imageList[3]?imageList[3]:imageList[0]} alt="Imagem"></Image>
                         </div>
                         <div className="cursor-pointer" onClick={() => selectImage(4)}>
                             <div className="relative flex items-center justify-center text-center">
-                                <Image className="rounded-br-[10px]" src={imageList[4]?imageList[4]:imageList[0]}></Image>
+                                <Image className="rounded-br-[10px]" alt="Imagem" src={imageList[4]?imageList[4]:imageList[0]}></Image>
                                 <p className="absolute inset-0 rounded-br-[10px] flex items-center justify-center text-[#fff] text-lg bg-[#9D816899]">+<br></br> Ver Mais</p>
                             </div>
                         </div>
@@ -111,7 +111,7 @@ export default function ImageViewer(){
 
                     {modalOpen? 
                     <div className="flex justify-center items-center absolute top-0 z-30 h-screen w-full bg-[#2e2e2ec2]">
-                        <button onClick={()=> setModalOpen(!modalOpen)} className="absolute top-0 left-0 mt-5 ml-5">
+                        <button onClick={handleClose} className="absolute top-0 left-0 mt-5 ml-5">
                             <Image src={imageviewerclose}></Image>
                         </button>
                         <button onClick={handlePrevious} className="w-[20px] sm:w-[50px] md:w-[80px] h-[20px] sm:h-[50px] md:h-[80px] relative">

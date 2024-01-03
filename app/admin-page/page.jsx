@@ -30,6 +30,11 @@ export default function AdminPage() {
                             <button className='p-2 rounded-md bg-[#fff]'>Produtos</button>
                         </Link>
                     </li>
+                    <li>
+                        <Link href={'/admin-page/botoesprodutos'}>
+                            <button className='p-2 rounded-md bg-[#fff]'>Botões dos produtos</button>
+                        </Link>
+                    </li>
                 </ul>
             </nav>
         </div>

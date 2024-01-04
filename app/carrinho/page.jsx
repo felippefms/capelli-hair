@@ -4,22 +4,26 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ChartItem from '../../components/ChartItem';
 import ChartStages from '../../components/ChartStages';
+import Loading from '../../components/Loading';
 import { getChart } from '../api/requests';
 import { useEffect, useState } from 'react';
 
 export default function Carrinho(){
-
+    const [loading, setLoading] = useState(false);
     const [userChart, setUserChart] = useState();
 
     useEffect(()=>{
-        getChart(2,({response}) => {
-            setUserChart(response);
-            console.log('teste',response);
+        getChart(2,(carrinho) => {
+            setUserChart(carrinho);
+            console.log(carrinho);
         });
     },[])
 
     return(
         <div className='flex flex-col'>
+            {loading === true &&(
+                <Loading></Loading>
+            )}
             <Header></Header>
             <ChartStages></ChartStages>
             <div className='flex flex-col lg:flex-row items-center lg:justify-center'>

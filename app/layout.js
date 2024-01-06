@@ -1,7 +1,12 @@
 'use client'
+
 import { Montserrat } from 'next/font/google'
 import './globals.css'
+
 import { usePathname } from 'next/navigation'
+
+import { checkIsPrivateRoute } from './api/appRoutes'
+import PrivateRoute from './api/privateRoute'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -15,24 +20,16 @@ const montserrat = Montserrat({
 // }
 
 export default function RootLayout({ children }) {
-  const route = usePathname();
-  console.log(route);
-  
-  if (true) {
+  const pathName = usePathname();
+
+  const isPublicPage = checkIsPrivateRoute(pathName);
+
     return (
       <html lang="pt-br">
         <body className={montserrat.className}>
           {isPublicPage && children}
-        </body>
-      </html>
-    )
-  } else {
-    return (
-      <html lang="pt-br">
-        <body className={montserrat.className}>
           {!isPublicPage && <PrivateRoute>{children}</PrivateRoute>}
         </body>
       </html>
     )
-  }
 }

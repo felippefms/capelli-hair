@@ -13,7 +13,7 @@ export default function ChartItem(props){
                     <Image src={loadingimg} alt="Imagem Produto"></Image>
                 </div>
                 <div className="flex flex-col items-start lg:mr-[100px] min-[409px]:mr-4 justify-center ml-14">
-                    <p className="font-bold">Nome produto</p>
+                    <p className="font-bold">{props.name}</p>
                     <p className="underline">Remover</p>
                 </div>
             </div>

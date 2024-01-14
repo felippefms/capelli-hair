@@ -189,7 +189,7 @@ export default function Menu() {
                             Continuar com Apple
                         </button>
                     </div>
-                    <div className="flex justify-center mt-8 whitespace-nowrap lg:mb-[36px]">
+                    <div className="flex justify-center mt-8 lg:mb-[36px] max-[380px]:text-[0.700rem] text-sm">
                         <p className="cursor-default text-[#888]">Ainda não está na Capelli Hair?</p>
                         <button onClick={(() => setSignUpOpen(!signUpOpen))} className="ml-2 underline text-[#9D8168]">Crie uma conta</button>
                     </div>
@@ -212,7 +212,7 @@ export default function Menu() {
                 </div>
                 <div className="px-6">
                     <div className="flex flex-col justify-center space-y-6">
-                        <input placeholder="Nome Completo" type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} className="w-full border pl-4 pr-12 mt-12 relative h-11 rounded-[10px] border-[#888888]"></input>
+                        <input placeholder="Nome Completo" type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} className="w-full border pl-4 pr-12 mt-8 relative h-11 rounded-[10px] border-[#888888]"></input>
                         <input placeholder="Telefone" type="number" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full border px-4 h-11 rounded-[10px] border-[#888888]"></input>
                         <input placeholder="E-mail" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border pl-4 pr-12 relative h-11 rounded-[10px] border-[#888888]"></input>
                         <div className="relative">

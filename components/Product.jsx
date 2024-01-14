@@ -14,7 +14,7 @@ import SizeButtons from "./SizeButtons";
 import VolumeButtons from "./VolumeButtons";
 import TecnicaButtons from "./TecnicaButtons";
 import { useRouter } from "next/navigation";
-import { getVolumeButtons, getSizeButtons, getTecnicaButtons } from "../app/api/requests";
+import { getVolumeButtons, getSizeButtons, getTecnicaButtons, AddProductChart } from "../app/api/requests";
 
 export default function Product(produto){
     const [sizeButtonsList, setSizeButtonsList] = useState([]);
@@ -32,12 +32,11 @@ export default function Product(produto){
     const [quantity, setQuantity] = useState(1);
     const router = useRouter();
     const [produtoFinalizado, setProdutoFinalizado] = useState({
-        id : produto.produto.id,
-        valor : actualValue,
+        produtoId : produto.produto.id,
         quantidade : quantity,
-        tamanho : null,
-        volume : null,
-        tecnica : null,
+        tamanhoId : null,
+        tecnicaId : null,
+        volumeId : null,
     });
     
     useEffect(() => {
@@ -54,14 +53,10 @@ export default function Product(produto){
         });
     }, []);
 
-    useEffect(() => {
-        console.log(produtoFinalizado);
-    },[produtoFinalizado])
-
     return(
         <div className="flex flex-col lg:flex-row items-center justify-center mt-3 lg:mt-12">
 
-            {/* DESKTOP VERSION BELOW */}
+            {/* MOBILE VERSION BELOW */}
             <div className="flex max-lg:hidden">
                 <div className="flex w-[50%] md:justify-end md:items-center mr-24 ml-4">
                     <ImageViewer></ImageViewer>
@@ -71,7 +66,7 @@ export default function Product(produto){
                     <div>
                         <button onClick={()=> router.back()} className="flex items-center text-[#888] font-light underline">
                             <Image src={arrowleft} alt="Retroceder"></Image>
-                            {produto.produto.cor.nome}
+                            {produto.produto.categoria.nome}
                         </button>
                         <p className="mt-6 max-md:mb-[32px] text-xl font-bold text-[#9D8168]">{produto.produto.name}</p>
                     </div>
@@ -80,7 +75,7 @@ export default function Product(produto){
                         <p><b>Tamanho.</b> <b className="text-[#9D8168]">Qual é o melhor para você?</b></p>
                         <div className="flex items-center flex-wrap max-w-[380px] mt-6 justify-left">
                             {sizeButtonsList.map((content, index)=>(
-                                <SizeButtons key={index} content={content.cm} selected={selectedSize} setSelected={setSelectedSize} setProdutoFinalizado={setProdutoFinalizado}></SizeButtons>
+                                <SizeButtons key={index} content={content} selected={selectedSize} setSelected={setSelectedSize} setProdutoFinalizado={setProdutoFinalizado}></SizeButtons>
                             ))}
                         </div>
                     </div>
@@ -89,7 +84,7 @@ export default function Product(produto){
                         <p><b>Volume.</b> <b className="text-[#9D8168]">Quantas gramas você deseja?</b></p>
                         <div className="flex items-center mt-6 flex-wrap max-w-[380px] justify-left">
                             {volumeButtonsList.map((content, index)=>(
-                                <VolumeButtons key={index} content={content.gramas} selected={selectedVolume} setSelected={setSelectedVolume} setProdutoFinalizado={setProdutoFinalizado}></VolumeButtons>
+                                <VolumeButtons key={index} content={content} selected={selectedVolume} setSelected={setSelectedVolume} setProdutoFinalizado={setProdutoFinalizado}></VolumeButtons>
                             ))}
                         </div>
                     </div>
@@ -98,7 +93,7 @@ export default function Product(produto){
                         <p><b>Técnica.</b> <b className="text-[#9D8168]">Escolha a que mais combina com você.</b></p>
                         <div className="flex items-center mt-6 flex-wrap max-w-[380px] justify-left">
                             {tecnicaButtonsList.map((content, index)=>(
-                                <TecnicaButtons key={index} content={content.nome} selected={selectedTecnica} setSelected={setSelectedTecnica} setProdutoFinalizado={setProdutoFinalizado}></TecnicaButtons>
+                                <TecnicaButtons key={index} content={content} selected={selectedTecnica} setSelected={setSelectedTecnica} setProdutoFinalizado={setProdutoFinalizado}></TecnicaButtons>
                             ))}
                         </div>
                     </div>
@@ -112,7 +107,7 @@ export default function Product(produto){
                     </div>
 
                     <div className="mt-10">
-                        <button className="py-4 px-8 bg-[#9D8168] text-[#fff] rounded-[10px]">
+                        <button onClick={()=>AddProductChart(produtoFinalizado)} className="py-4 px-8 bg-[#9D8168] text-[#fff] rounded-[10px]">
                             Adicionar à sacola
                         </button>
                     </div>
@@ -193,12 +188,12 @@ export default function Product(produto){
             </div>
 
 
-            {/* MOBILE VERSION BELOW */}
+            {/* DESKTOP VERSION BELOW */}
             <div className="flex flex-col px-2 lg:hidden">
                 <div className="mt-12">
                     <button onClick={()=> router.back()} className="flex items-center text-[#888] font-light underline">
                         <Image src={arrowleft} alt="Retroceder"></Image>
-                        {produto.produto.cor.nome}
+                        {produto.produto.categoria.nome}
                     </button>
                     <p className="mt-6 max-md:mb-[32px] text-xl font-bold text-[#9D8168]">{produto.produto.name}</p>
                 </div>
@@ -211,7 +206,7 @@ export default function Product(produto){
                     <p><b>Tamanho.</b> <b className="text-[#9D8168]">Qual é o melhor para você?</b></p>
                     <div className="flex items-center flex-wrap max-w-[360px] justify-center">
                         {sizeButtonsList.map((content, index)=>(
-                            <SizeButtons key={index} content={content.cm} selected={selectedSize} setSelected={setSelectedSize} setProdutoFinalizado={setProdutoFinalizado}></SizeButtons>
+                            <SizeButtons key={index} content={content} selected={selectedSize} setSelected={setSelectedSize} setProdutoFinalizado={setProdutoFinalizado}></SizeButtons>
                         ))}
                     </div>
                 </div>
@@ -229,7 +224,7 @@ export default function Product(produto){
                     <p><b>Técnica.</b> <b className="text-[#9D8168]">Escolha a que mais combina com você.</b></p>
                     <div className="flex items-center flex-wrap max-w-[360px] justify-center">
                         {tecnicaButtonsList.map((content, index)=>(
-                            <TecnicaButtons key={index} content={content.nome} selected={selectedTecnica} setSelected={setSelectedTecnica} setProdutoFinalizado={setProdutoFinalizado}></TecnicaButtons>
+                            <TecnicaButtons key={index} content={content} selected={selectedTecnica} setSelected={setSelectedTecnica} setProdutoFinalizado={setProdutoFinalizado}></TecnicaButtons>
                         ))}
                     </div>
                 </div>
@@ -243,7 +238,7 @@ export default function Product(produto){
                 </div>
 
                 <div className="mt-10">
-                    <button className="py-4 px-8 bg-[#9D8168] text-[#fff] rounded-[10px]">
+                    <button onClick={()=> AddProductChart(produtoFinalizado)} className="py-4 px-8 bg-[#9D8168] text-[#fff] rounded-[10px]">
                         Adicionar à sacola
                     </button>
                 </div>

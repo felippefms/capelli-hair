@@ -233,7 +233,7 @@ export function ProductById(id, callback) {
 
 {/* CRIAR UM PRODUTO (ADMIN) */}
 
-export function CreateProduct(name, description, corId, price, estoque) {
+export function CreateProduct(name, description, categoriaId, price, estoque) {
     const token = CreateAuthorizationHeader();
 
     if (StorageService.isAdminLoggedIn() === true) {
@@ -241,7 +241,7 @@ export function CreateProduct(name, description, corId, price, estoque) {
         const produto = {
             name,
             description,
-            corId,
+            categoriaId,
             price,
             estoque
         }
@@ -357,11 +357,12 @@ export function DeleteProduct(product, callback) {
 
  {/* ADICIONAR UM PRODUTO AO CARRINHO (EM PROGRESSO) */}
 
-export function AddProductChart(id, callback) {
+export function AddProductChart(produtoFinalizado, callback) {
     const token = CreateAuthorizationHeader();
+    const id = Cookies.get('id');
 
     if (StorageService.isUserLoggedIn() === true) {
-        instance.post(`/api/carrinho/carrinhos/${id}`, {
+        instance.post(`/api/carrinho/carrinhos/${id}`,produtoFinalizado ,{
             headers: {
                 Authorization: token
             }
@@ -377,8 +378,9 @@ export function AddProductChart(id, callback) {
 
  {/* RETORNA O CARRINHO DO USUÁRIO (EM PROGRESSO) */}
 
- export function getChart(id, callback) {
+ export function getChart(callback) {
     const token = CreateAuthorizationHeader();
+    const id = Cookies.get('id');
 
     if (StorageService.isUserLoggedIn() === true) {
         instance.get(`/api/carrinho/carrinhos/${id}`, {
@@ -389,6 +391,27 @@ export function AddProductChart(id, callback) {
         .then((response)=>{
             const carrinho = response.data;
             callback(carrinho);
+        })
+        .catch(()=>{
+            console.log();
+        })
+    }
+}
+
+{/* EXLCUI UM PRODUTO DO CARRINHO DO USUÁRIO (EM PROGRESSO) */}
+
+export function deleteChartItem(produtoId, callback) {
+    const token = CreateAuthorizationHeader();
+    const idUser = Cookies.get('id');
+
+    if (StorageService.isUserLoggedIn() === true) {
+        instance.delete(`/api/carrinho/carrinhos/${produtoId}/${idUser}`, {
+            headers: {
+                Authorization: token
+            }
+        })
+        .then((response)=>{
+            callback(response.data);
         })
         .catch(()=>{
             console.log();

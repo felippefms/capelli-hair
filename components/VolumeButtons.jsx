@@ -2,11 +2,11 @@
 
 const VolumeButtons = ({ content, setProdutoFinalizado, selected, setSelected }) => {
   const handleVolumeButtonClick = () => {
-    setSelected(content);
+    setSelected(content.id);
     setProdutoFinalizado((prevProdutoFinalizado) => {
       return {
         ...prevProdutoFinalizado,
-        volume: content,
+        volumeId: content.id,
       };
     });
   };
@@ -16,10 +16,10 @@ const VolumeButtons = ({ content, setProdutoFinalizado, selected, setSelected })
       <button
         onClick={handleVolumeButtonClick}
         className={`flex justify-center m-0.5 items-center text-[#888] w-[70px] h-[30px] rounded-[5px] ${
-          selected === content ? 'bg-[#F1E0CE]' : 'bg-[#F4F4F4]'
+          selected === content.id ? 'bg-[#F1E0CE]' : 'bg-[#F4F4F4]'
         }`}
       >
-        {content}
+        {content.gramas}
       </button>
     </div>
   );

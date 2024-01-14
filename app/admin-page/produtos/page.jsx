@@ -18,7 +18,7 @@ export default function PaginaDeProdutos(){
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [corId, setCorId] = useState('');
+    const [categoriaId, setCategoriaId] = useState('');
     const [price, setPrice] = useState('');
     const [estoque, setEstoque] = useState('');
 
@@ -72,12 +72,12 @@ export default function PaginaDeProdutos(){
                 <div>
                     <input placeholder="Nome" type="text" value={name} onChange={(e) => setName(e.target.value)} className="border mb-2 px-4 min-h-[61px] max-h-[61px] rounded-[10px] border-[#888888]"></input>
                     <input placeholder="Descrição" type="text" value={description} onChange={(e) => setDescription(e.target.value)} className="border mb-2 px-4 min-h-[61px] max-h-[61px] rounded-[10px] border-[#888888]"></input>
-                    <input placeholder="CorId" type="text" value={corId} onChange={(e) => setCorId(e.target.value)} className="border mb-2 px-4 min-h-[61px] max-h-[61px] rounded-[10px] border-[#888888]"></input>
+                    <input placeholder="CategoriaId" type="text" value={categoriaId} onChange={(e) => setCategoriaId(e.target.value)} className="border mb-2 px-4 min-h-[61px] max-h-[61px] rounded-[10px] border-[#888888]"></input>
                     <input placeholder="Preço" type="text" value={price} onChange={(e) => setPrice(e.target.value)} className="border mb-2 px-4 min-h-[61px] max-h-[61px] rounded-[10px] border-[#888888]"></input>
                     <input placeholder="Estoque" type="text" value={estoque} onChange={(e) => setEstoque(e.target.value)} className="border mb-2 px-4 min-h-[61px] max-h-[61px] rounded-[10px] border-[#888888]"></input>
                 </div>
                 <div>
-                    <button onClick={() => CreateProduct(name, description, corId, price, estoque)} className='bg-slate-700 rounded-md p-4 my-8 hover:text-[#fff]'>Criar produto</button>
+                    <button onClick={() => CreateProduct(name, description, categoriaId, price, estoque)} className='bg-slate-700 rounded-md p-4 my-8 hover:text-[#fff]'>Criar produto</button>
                 </div>
             </div>
 

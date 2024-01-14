@@ -20,7 +20,7 @@ export default function ContentBox2(){
     return(
         <div className="mt-11 md:mt-[88px] mb-4 md:mb-14">
             <div className="flex justify-center ">
-                <p className="text-2xl text-[#9D8168]">Conheça nossos cabelos</p>
+                <p className="text-2xl text-[#9D8168]">Explore nossas cores</p>
             </div>
             <div className="flex flex-row max-lg:flex-col justify-center">
                 <div className="flex justify-center">

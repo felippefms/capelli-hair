@@ -16,13 +16,12 @@ export default function Carrinho(){
     const [chartStage, setChartStage] = useState();
 
     useEffect(()=>{
-        getChart(2,(carrinho) => {
+        getChart((carrinho) => {
             setUserChart(carrinho);
             setChartStage('chart')
         });
         setLoading(false)
     },[])
-    console.log(userChart);
 
     return(
         <div className='flex flex-col'>

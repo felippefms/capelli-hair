@@ -8,7 +8,7 @@ export default function ProductValue(actualValue){
     return(
         <div>
             <p>Valor total</p>
-            <p className="mt-2 text-[#2E2E2E] font-[600] text-2xl">{formattedPrice}</p>
+            <p className="mt-5 text-[#2E2E2E] font-[600] text-2xl">{formattedPrice}</p>
         </div>
     )
 }

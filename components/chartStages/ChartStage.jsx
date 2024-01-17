@@ -19,7 +19,7 @@ export default function ChartStage(props) {
                     <div className='flex flex-col w-full my-14 px-4'>
                         <p className='text-lg font-semibold lg:text-xl lg:font-light text-[#9D8168]'>Carrinho</p>
                         {props.userChart.map((item) =>
-                            <ChartItem key={item.id} id={item.produto.id} name={item.produto.name} ></ChartItem>
+                            <ChartItem key={item.id} id={item.produto.id} name={item.produto.name} quantity={item.quantidade} valorTotal={item.quantia} ></ChartItem>
                         )}
                     </div>
                 </div>

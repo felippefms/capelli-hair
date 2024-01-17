@@ -20,8 +20,8 @@ export default function ChartItem(props){
                 </div>
             </div>
             <div className="flex items-start space-x-5 lg:space-x-12 mb-11">
-                <QuantityChanger></QuantityChanger>
-                <ProductValue></ProductValue>
+                <QuantityChanger quantity={props.quantity}></QuantityChanger>
+                <ProductValue actualValue={props.valorTotal}></ProductValue>
             </div>
             <hr className="w-full border-t-2 border-[#D1D1D1]" />
         </div>

@@ -7,6 +7,8 @@ import Image from "next/image";
 
 import { HandleLogin, HandleSignUp } from "../app/api/requests";
 
+import { signIn } from "next-auth/react"
+
 import Logo from "../src/media/logo.svg";
 import Menubtn from "../src/media/menubtn.svg";
 import Closebtn from "../src/media/closebtn.svg";
@@ -180,7 +182,7 @@ export default function Menu() {
                             <Image src={FacebookLoginImg} alt="Continuar com Facebook" className="absolute left-0 ml-4 bg-[#1877F2]"></Image>
                             Continuar com Facebook
                         </button>
-                        <button className="flex w-full py-[10px] mt-4 justify-center relative rounded-lg text-[#888] bg-[#ffff] border">
+                        <button onClick={() => signIn('google')} className="flex w-full py-[10px] mt-4 justify-center relative rounded-lg text-[#888] bg-[#ffff] border">
                             <Image src={GoogleLoginImg} alt="Continuar com Facebook" className="absolute left-0 ml-4"></Image>
                             Continuar com google
                         </button>
@@ -233,7 +235,7 @@ export default function Menu() {
                             <Image src={FacebookLoginImg} alt="Continuar com Facebook" className="absolute left-0 ml-4 bg-[#1877F2]"></Image>
                             Continuar com Facebook
                         </button>
-                        <button className="flex w-full h-11 py-[10px] mt-4 justify-center relative rounded-lg text-[#888] bg-[#ffff] border">
+                        <button onClick={() => signIn('google')} className="flex w-full h-11 py-[10px] mt-4 justify-center relative rounded-lg text-[#888] bg-[#ffff] border">
                             <Image src={GoogleLoginImg} alt="Continuar com Facebook" className="absolute left-0 ml-4"></Image>
                             Continuar com google
                         </button>

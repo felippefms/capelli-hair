@@ -178,7 +178,7 @@ export default function Menu() {
                         <p className="text-lg cursor-default text-[#9D8168] my-8">
                             Ou
                         </p>
-                        <button className="flex w-full py-[10px] justify-center relative rounded-lg text-[#ffff] bg-[#1877F2]">
+                        <button onClick={() => signIn('facebook')} className="flex w-full py-[10px] justify-center relative rounded-lg text-[#ffff] bg-[#1877F2]">
                             <Image src={FacebookLoginImg} alt="Continuar com Facebook" className="absolute left-0 ml-4 bg-[#1877F2]"></Image>
                             Continuar com Facebook
                         </button>

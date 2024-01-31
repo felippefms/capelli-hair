@@ -16,7 +16,9 @@ export function HandleLogin (email, password){
             const user = response.data.role;
             const id = response.data.id;
 
-            StorageService.saveUser(user);
+            if (user === 'ADMIN') {
+                StorageService.saveUser(user);    
+            }
             StorageService.saveToken(bearerToken);
             StorageService.saveId(id);
 

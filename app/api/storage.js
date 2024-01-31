@@ -40,7 +40,7 @@ const StorageService = {
   },
 
   isUserLoggedIn: () => {
-    return StorageService.getToken() && StorageService.getUserRole() === 'USER';
+    return StorageService.getToken() && StorageService.getUserRole() == null;
   },
 
   logout: () => {

@@ -4,12 +4,16 @@ import Facebook from "next-auth/providers/facebook"
 
 export const {
   handlers: { GET, POST },
-  auth, useSession,
+  auth,
 } = NextAuth({
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
     }),
-    Facebook],
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET
+    })
+  ],
 })

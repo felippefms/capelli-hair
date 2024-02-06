@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import { useSession, signOut, auth } from "next-auth/react"
+import { useSession, signOut } from "next-auth/react"
 
 export default function Teste() {
     const session = useSession();

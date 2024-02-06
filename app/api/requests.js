@@ -58,6 +58,29 @@ export function HandleSignUp(fullName, phone, email, password){
         });
 };
 
+{/* LOGIN GOOGLE */}
+
+export function GoogleSignUp(name, email){
+
+    const userData = {
+        name,
+        email,
+    };
+
+    instance.post('api/user/google', userData)
+        .then(() => {
+            Cookies.remove('token','user');
+
+            Cookies.set('token', bearerToken, { expires: 5 });
+            Cookies.set('user', userType, { expires: 5 });
+
+            window.location.href = '/'
+    })
+        .catch(() => {
+            console.log();
+        });
+};
+
 {/* PEGAR TODOS OS USUÁRIOS (ADMIN) */}
 
 export function GetAllUsers(callback) {

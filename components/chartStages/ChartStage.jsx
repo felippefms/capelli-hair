@@ -5,7 +5,7 @@ import ChartItem from '../ChartItem';
 export default function ChartStage(props) {
     return (
         <div className='flex flex-col lg:flex-row items-center lg:justify-center'>
-            <div className='flex flex-col justify-between lg:mr-16 min-[1024px]:ml-4'>
+            <div className='flex flex-col w-full justify-between lg:mr-16 min-[1024px]:ml-4'>
                 <div className='flex flex-col justify-center items-center'>
                     <div className='flex flex-col justify-center items-center lg:items-start'>
                         <p className='text-lg font-semibold lg:text-2xl lg:font-light mt-12 text-[#9D8168]'>Qual é o endereço de entrega?</p>
@@ -25,7 +25,7 @@ export default function ChartStage(props) {
                 </div>
             </div>
 
-            <div className='w-full min-[425px]:max-w-[368px] flex flex-col justify-center items-center min-[1024px]:mr-4 mb-4 border border-[#D1D1D1] rounded-3xl py-10'>
+            <div className='w-full min-[425px]:max-w-[368px] flex flex-col justify-center items-center min-[1024px]:mr-4 mb-4 border-t lg:border border-[#D1D1D1] rounded-3xl py-10'>
                 <div className='flex flex-col justify-center items-start'>
                     <p className='text-lg lg:text-2xl lg:font-light font-semibold text-[#9D8168]'>Resumo</p>
                     <div className='flex items-center mt-10'>

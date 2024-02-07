@@ -7,6 +7,7 @@ import Image from "next/image";
 import { HandleLogin, HandleSignUp, GoogleSignUp } from "../app/api/requests";
 import { signIn } from "next-auth/react"
 import { useSession } from "next-auth/react";
+import { useAppStore } from '../store/AppStore'
 
 import Logo from "../src/media/logo.svg";
 import Menubtn from "../src/media/menubtn.svg";
@@ -43,22 +44,24 @@ export default function Menu() {
 
   const session = useSession();
 
+  const googleLoginSession = useAppStore((state) => state.googleLoginSession)
+  const setGoogleLoginSession = useAppStore((state) => state.setGoogleLoginSession)
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const googleLogin = async() => {
+  const googleLogin = () => {
+    setGoogleLoginSession(true);
     signIn('google')
-    .then(
-      googleLogin2()
-    )
   }
 
-  const googleLogin2 = async () => {
-    if (session.status === 'authenticated') {
-      GoogleSignUp(session.data.user.name,session.data.user.email)
+  useEffect(()=>{
+    if (session.status === 'authenticated' && googleLoginSession === true) {
+      GoogleSignUp(session.data.user.name,session.data.user.email, session.data.user.image)
+      setGoogleLoginSession(false);
     }
-  }
+  },[googleLoginSession])
 
   useEffect(() => {
     //controlar rolamento da tela quando o menu está aberto

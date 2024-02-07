@@ -60,14 +60,15 @@ export function HandleSignUp(fullName, phone, email, password){
 
 {/* LOGIN GOOGLE */}
 
-export function GoogleSignUp(name, email){
+export function GoogleSignUp(name, email, picture){
 
     const userData = {
         name,
         email,
+        picture
     };
 
-    instance.post('api/user/google', userData)
+    instance.post('/google', userData)
         .then(() => {
             Cookies.remove('token','user');
 

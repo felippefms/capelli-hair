@@ -4,13 +4,15 @@ import { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ChartStagesStatus from '../../components/chartStages/ChartStagesStatus';
-import Loading from '../../components/Loading';
+import LoadingComponent from '../../components/LoadingComponent';
+import { useAppStore } from '../../store/AppStore';
 import { getChart } from '../api/requests';
 
 import ChartStage from '../../components/chartStages/ChartStage';
 
 export default function Carrinho(){
-    const [loading, setLoading] = useState(true);
+    const Loading = useAppStore((state) => state.Loading)
+    const setLoading = useAppStore((state) => state.setLoading)
     const [userChart, setUserChart] = useState([]);
 
     const [chartStage, setChartStage] = useState();
@@ -25,8 +27,8 @@ export default function Carrinho(){
 
     return(
         <div className='flex flex-col'>
-            {loading === true &&(
-                <Loading></Loading>
+            {Loading === true &&(
+                <LoadingComponent></LoadingComponent>
             )}
             <Header></Header>
             <ChartStagesStatus chartStage={chartStage}></ChartStagesStatus>

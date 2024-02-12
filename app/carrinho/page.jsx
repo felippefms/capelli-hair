@@ -3,40 +3,43 @@ import { useEffect, useState } from 'react';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import ChartStagesStatus from '../../components/chartStages/ChartStagesStatus';
+import ChartStagesIcons from '../../components/chartStages/ChartStagesIcons';
 import LoadingComponent from '../../components/LoadingComponent';
 import { useAppStore } from '../../store/AppStore';
+import { useChartStore } from '../../store/ChartStore';
 import { getChart } from '../api/requests';
 
 import ChartStage from '../../components/chartStages/ChartStage';
 
-export default function Carrinho(){
+export default function Carrinho() {
     const Loading = useAppStore((state) => state.Loading)
     const setLoading = useAppStore((state) => state.setLoading)
+
+    const chartStage = useChartStore((state) => state.ChartStage)
+    const setChartStage = useChartStore((state) => state.setChartStage)
+
     const [userChart, setUserChart] = useState([]);
 
-    const [chartStage, setChartStage] = useState();
-
-    useEffect(()=>{
+    useEffect(() => {
         getChart((carrinho) => {
             setUserChart(carrinho);
             setChartStage('chart')
         });
         setLoading(false)
-    },[])
+    }, [])
 
-    return(
+    return (
         <div className='flex flex-col'>
-            {Loading === true &&(
+            {Loading === true && (
                 <LoadingComponent></LoadingComponent>
             )}
             <Header></Header>
-            <ChartStagesStatus chartStage={chartStage}></ChartStagesStatus>
+            <ChartStagesIcons chartStage={chartStage}></ChartStagesIcons>
 
             {chartStage === 'chart' &&
                 <ChartStage userChart={userChart} setChartStage={setChartStage}></ChartStage>
             }
-            
+
             {chartStage === 'identification' &&
                 <p> 2- identification</p>
             }
@@ -52,7 +55,7 @@ export default function Carrinho(){
             {chartStage === 'complete' &&
                 <p> 5- complete</p>
             }
-            
+
             <Footer></Footer>
         </div>
     )

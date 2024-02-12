@@ -9,7 +9,7 @@ import { deleteChartItem } from "../app/api/requests";
 
 export default function ChartItem(props){
     return(
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap mb-8">
             <div className="flex">
                 <div className="w-[88px] h-[112px] flex">
                     <Image src={loadingimg} alt="Imagem Produto"></Image>

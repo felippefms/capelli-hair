@@ -9,7 +9,7 @@ import chartStage5 from '../../src/media/chartstage5.png';
 export default function ChartStagesStatus(props){
     return(
         <div className='hidden lg:flex mx-8 mt-14 items-center justify-center'>
-            <div className='flex items-center'>
+            <div className='flex items-center shrink-0'>
                 <div>
                     <Image src={chartStage1} alt='Sacola'></Image>
                 </div>
@@ -18,7 +18,7 @@ export default function ChartStagesStatus(props){
 
             <hr className="w-[69px] border-t-2 mx-8 border-[#D1D1D1]" />
 
-            <div className='flex items-center'>
+            <div className='flex items-center shrink-0'>
                 <div>
                     <Image src={chartStage2} alt='Identificação'></Image>
                 </div>
@@ -27,7 +27,7 @@ export default function ChartStagesStatus(props){
 
             <hr className="w-[69px] border-t-2 mx-8 border-[#D1D1D1]" />
 
-            <div className='flex items-center'>
+            <div className='flex items-center shrink-0'>
                 <div>
                     <Image src={chartStage3} alt='Pagamento'></Image>
                 </div>
@@ -35,7 +35,7 @@ export default function ChartStagesStatus(props){
             </div>
             <hr className="w-[69px] border-t-2 mx-8 border-[#D1D1D1]" />
 
-            <div className='flex items-center'>
+            <div className='flex items-center shrink-0'>
                 <div>
                     <Image src={chartStage4} alt='Revisão'></Image>
                 </div>
@@ -43,7 +43,7 @@ export default function ChartStagesStatus(props){
             </div>
             <hr className="w-[69px] border-t-2 mx-8 border-[#D1D1D1]" />
 
-            <div className='flex items-center'>
+            <div className='flex items-center shrink-0'>
                 <div>
                     <Image src={chartStage5} alt='Conlusão'></Image>
                 </div>

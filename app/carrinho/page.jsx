@@ -10,6 +10,10 @@ import { useChartStore } from '../../store/ChartStore';
 import { getChart } from '../api/requests';
 
 import ChartStage from '../../components/chartStages/ChartStage';
+import IdentificationStage from '../../components/chartStages/IdentificationStage';
+import PaymentStage from '../../components/chartStages/PaymentStage';
+import RevisionStage from '../../components/chartStages/RevisionStage';
+import CompleteStage from '../../components/chartStages/CompleteStage';
 
 export default function Carrinho() {
     const Loading = useAppStore((state) => state.Loading)
@@ -37,23 +41,23 @@ export default function Carrinho() {
             <ChartStagesIcons chartStage={chartStage}></ChartStagesIcons>
 
             {chartStage === 'chart' &&
-                <ChartStage userChart={userChart} setChartStage={setChartStage}></ChartStage>
+                <ChartStage userChart={userChart}></ChartStage>
             }
 
             {chartStage === 'identification' &&
-                <p> 2- identification</p>
+                <IdentificationStage></IdentificationStage>
             }
 
             {chartStage === 'payment' &&
-                <p> 3- payment</p>
+                <PaymentStage></PaymentStage>
             }
 
             {chartStage === 'revision' &&
-                <p> 4- revision</p>
+                <RevisionStage></RevisionStage>
             }
 
             {chartStage === 'complete' &&
-                <p> 5- complete</p>
+                <CompleteStage></CompleteStage>
             }
 
             <Footer></Footer>

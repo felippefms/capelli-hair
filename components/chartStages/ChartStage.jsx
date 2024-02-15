@@ -1,8 +1,12 @@
 'use client'
 
+import { useChartStore } from '../../store/ChartStore';
+
 import ChartItem from '../ChartItem';
 
 export default function ChartStage(props) {
+    const setChartStage = useChartStore((state) => state.setChartStage)
+
     return (
         <div className='flex flex-col lg:flex-row items-center lg:justify-center'>
             <div className='flex flex-col w-full lg:w-max justify-between lg:mr-16 min-[1024px]:ml-4'>
@@ -19,7 +23,7 @@ export default function ChartStage(props) {
                     <div className='flex flex-col w-full lg:max-w-[704px] max-w-[404px] lg:w-full my-14 px-4'>
                         <p className='text-lg font-semibold lg:text-xl lg:font-light text-[#9D8168]'>Carrinho</p>
                         {props.userChart.map((item) =>
-                            <ChartItem key={item.id} id={item.produto.id} name={item.produto.name} quantity={item.quantidade} valorTotal={item.quantia} ></ChartItem>
+                            <ChartItem key={item.id} id={item.produto.id} name={item.produto.name} quantity={item.quantidade} valorTotal={item.quantia}></ChartItem>
                         )}
                     </div>
                 </div>
@@ -43,7 +47,7 @@ export default function ChartStage(props) {
 
                 <div className='w-full flex flex-col items-center'>
                     <div>
-                        <button className='w-[288px] h-[53px] mt-10 rounded-[10px] text-[#fff] bg-[#9D8168]' onClick={()=> props.setChartStage('identification')}>Ir para o pagamento</button>
+                        <button className='w-[288px] h-[53px] mt-10 rounded-[10px] text-[#fff] bg-[#9D8168]' onClick={()=> setChartStage('identification')}>Ir para o pagamento</button>
                     </div>
                     <div>
                         <button className='w-[288px] h-[53px] my-6 rounded-[10px] border border-[#9D8168] text-[#9D8168]'>Continuar comprando</button>

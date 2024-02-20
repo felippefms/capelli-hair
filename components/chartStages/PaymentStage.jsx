@@ -21,6 +21,7 @@ export default function PaymentStage() {
     const [creddesc, setCredDesc] = useState(false);
     const [nupaydesc, setNupayDesc] = useState(false);
     const [applepaydesc, setApplePayDesc] = useState(false);
+    const [parcelamentoOptions, setParcelamentoOptions] = useState(false);
 
     return (
         <div className='flex flex-col lg:flex-row lg:justify-center lg:items-start mb-[40px] lg:mb-[80px] items-center'>
@@ -94,10 +95,10 @@ export default function PaymentStage() {
                                     <input type="text" placeholder='*Código de segurança' className='w-full rounded-[10px] lg:max-w-[48%] lg:ml-2 my-3 border h-[44px] px-3 text-sm'></input>
                                     <input type="text" placeholder='*CPF/CNPJ do titular' className='w-full rounded-[10px] lg:max-w-[48%] lg:mr-2 my-3 border h-[44px] px-3 text-sm'></input>
                                     <input type="text" placeholder='*Data de nascimento' className='w-full rounded-[10px] lg:max-w-[48%] lg:ml-2 my-3 border h-[44px] px-3 text-sm'></input>
-                                    <div className='relative'>
+                                    <div onClick={() => setParcelamentoOptions(!parcelamentoOptions)} className='relative'>
                                         <input type="text" placeholder='*Forma de pagamento' className='w-full cursor-pointer rounded-[10px] my-3 lg:max-w-[622px] border h-[44px] px-3 text-sm'></input>
-                                        <div className='w-[20px] h-[20px] cursor-pointer shrink-0 absolute right-5 bottom-5'>
-                                            <Image src={downarrowimg} fill alt='Forma de pagamento'></Image>
+                                        <div className='w-[20px] h-[20px] cursor-pointer shrink-0 absolute right-5 bottom-[1.4rem]'>
+                                            <Image src={parcelamentoOptions == true ? uparrowimg : downarrowimg} fill alt='Forma de pagamento'></Image>
                                         </div>
                                     </div>
                                 </form>

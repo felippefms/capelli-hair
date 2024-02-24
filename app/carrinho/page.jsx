@@ -5,7 +5,6 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ChartStagesIcons from '../../components/chartStages/ChartStagesIcons';
 import LoadingComponent from '../../components/LoadingComponent';
-import { useAppStore } from '../../store/AppStore';
 import { useChartStore } from '../../store/ChartStore';
 import { getChart } from '../api/requests';
 
@@ -16,12 +15,9 @@ import RevisionStage from '../../components/chartStages/RevisionStage';
 import CompleteStage from '../../components/chartStages/CompleteStage';
 
 export default function Carrinho() {
-    const Loading = useAppStore((state) => state.Loading)
-    const setLoading = useAppStore((state) => state.setLoading)
-
+    const [loading, setLoading] = useState(true);
     const chartStage = useChartStore((state) => state.ChartStage)
     const setChartStage = useChartStore((state) => state.setChartStage)
-
     const [userChart, setUserChart] = useState([]);
 
     useEffect(() => {
@@ -34,7 +30,7 @@ export default function Carrinho() {
 
     return (
         <div className='flex flex-col'>
-            {Loading === true && (
+            {loading === true && (
                 <LoadingComponent></LoadingComponent>
             )}
             <Header></Header>

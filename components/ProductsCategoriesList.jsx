@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image";
 import { CategoryList } from "../app/api/requests";
+import LoadingComponent from "./LoadingComponent";
 
 import exemploimg from "../src/media/cabelomodelo2.png"
 import { useRouter } from "next/navigation";
@@ -11,10 +12,12 @@ export default function ProductsCategoriesList(){
 
 const router = useRouter();
 const [categoryList, setCategoryList] = useState([]);
+const [loading, setLoading] = useState(true);
 
 const fetchAllCategories = () => {
     CategoryList((categoryList) => {
         setCategoryList(categoryList);
+        setLoading(false);
     });
 };
 
@@ -33,6 +36,11 @@ const bgButtonColors = ["#9D8168", "#FFFFFF", "#9D8168"];
 const textButtonColors = ["#FFFFFF", "#9D8168", "#FFFFFF"];
 
     return(
+        loading === true ? (
+            <LoadingComponent></LoadingComponent>
+        ) 
+        : 
+        (
         <div className="flex flex-col justify-center items-center">
             <div className="w-full list-none">
                 {categoryList.map((category, index) => (
@@ -53,5 +61,6 @@ const textButtonColors = ["#FFFFFF", "#9D8168", "#FFFFFF"];
                 ))}
             </div>
         </div>
+        )
     )
 }

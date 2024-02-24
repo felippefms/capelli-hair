@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { ProductsByCategoryName } from '../../api/requests';
 import ExclusiveColorsBox from '../../../components/ProductBox';
 import LoadingComponent from '../../../components/LoadingComponent';
-import { useAppStore } from '../../../store/AppStore';
 import Header from '../../../components/Header';
 import ContentBox5 from '../../../components/ContentBox5';
 import ContentBox6 from '../../../components/ContentBox6';
@@ -12,8 +11,7 @@ import Footer from '../../../components/Footer';
 
 export default function Categoria({ params }) {
   const [produtos, setProdutos] = useState();
-  const Loading = useAppStore((state) => state.Loading)
-  const setLoading = useAppStore((state) => state.setLoading)
+  const [loading, setLoading] = useState(true);
 
   const fetchAllProducts = ({ params }) => {
     ProductsByCategoryName(params.categoria, (produtos) => {
@@ -27,7 +25,7 @@ export default function Categoria({ params }) {
   },[]);
 
   return (
-    Loading === true ? (
+    loading === true ? (
       <div>
         <Header />
         <LoadingComponent />

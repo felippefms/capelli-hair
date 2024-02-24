@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { useAppStore } from '../../../../store/AppStore';
 
 import Header from '../../../../components/Header';
 import Footer from '../../../../components/Footer';
@@ -12,8 +11,7 @@ import ContentBox6 from '../../../../components/ContentBox6';
 import { ProductById } from '../../../api/requests';
 
 export default function Produtos({params}){
-    const Loading = useAppStore((state) => state.Loading)
-    const setLoading = useAppStore((state) => state.setLoading)
+    const [loading, setLoading] = useState(true);
     const [produto, setProduto] = useState();
 
     const fetchProduct = ({ params }) => {
@@ -28,7 +26,7 @@ export default function Produtos({params}){
       },[]);
 
     return(
-        Loading === true ? (
+        loading === true ? (
             <div>
                 <Header></Header>
                 <LoadingComponent></LoadingComponent>

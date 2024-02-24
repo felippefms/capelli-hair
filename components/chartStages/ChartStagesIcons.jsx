@@ -26,7 +26,7 @@ export default function ChartStagesIcons() {
                 <p className={`ml-2 font-semibold text-[#9D8168]`}>Sacola</p>
             </div>
 
-            <hr className="w-[69px] border-t-2 mx-8 border-[#D1D1D1]" />
+            <hr className={`w-[69px] border-t-2 mx-8 ${chartStage === 'identification' || chartStage === 'payment' || chartStage === 'revision' || chartStage === 'complete' ? 'border-[#9D8168]' : 'border-[#D1D1D1]'}`} />
 
             <div className='flex items-center shrink-0'>
                 <div>
@@ -35,7 +35,7 @@ export default function ChartStagesIcons() {
                 <p className={`ml-2 font-semibold ${chartStage === 'identification' || chartStage === 'payment' || chartStage === 'revision' || chartStage === 'complete' ? `text-[#9D8168]` : `text-[#D1D1D1]`}`}>Identificação</p>
             </div>
 
-            <hr className="w-[69px] border-t-2 mx-8 border-[#D1D1D1]" />
+            <hr className={`w-[69px] border-t-2 mx-8 ${chartStage === 'payment' || chartStage === 'revision' || chartStage === 'complete' ? 'border-[#9D8168]' : 'border-[#D1D1D1]'}`} />
 
             <div className='flex items-center shrink-0'>
                 <div>
@@ -43,7 +43,8 @@ export default function ChartStagesIcons() {
                 </div>
                 <p className={`ml-2 font-semibold ${chartStage === 'payment' || chartStage === 'revision' || chartStage === 'complete' ? `text-[#9D8168]` : `text-[#D1D1D1]`}`}>Pagamento</p>
             </div>
-            <hr className="w-[69px] border-t-2 mx-8 border-[#D1D1D1]" />
+
+            <hr className={`w-[69px] border-t-2 mx-8 ${chartStage === 'revision' || chartStage === 'complete' ? 'border-[#9D8168]' : 'border-[#D1D1D1]'}`} />
 
             <div className='flex items-center shrink-0'>
                 <div>
@@ -51,7 +52,8 @@ export default function ChartStagesIcons() {
                 </div>
                 <p className={`ml-2 font-semibold ${chartStage === 'revision' || chartStage === 'complete' ? `text-[#9D8168]` : `text-[#D1D1D1]`}`}>Revisão</p>
             </div>
-            <hr className="w-[69px] border-t-2 mx-8 border-[#D1D1D1]" />
+
+            <hr className={`w-[69px] border-t-2 mx-8 ${chartStage === 'complete' ? 'border-[#9D8168]' : 'border-[#D1D1D1]'}`} />
 
             <div className='flex items-center shrink-0'>
                 <div>

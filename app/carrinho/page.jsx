@@ -1,31 +1,61 @@
 'use client'
+import { useEffect, useState } from 'react';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import ChartStagesIcons from '../../components/chartStages/ChartStagesIcons';
+import LoadingComponent from '../../components/LoadingComponent';
+import { useChartStore } from '../../store/ChartStore';
+import { getChart } from '../api/requests';
 
-export default function Carrinho(){
-    return(
+import ChartStage from '../../components/chartStages/ChartStage';
+import IdentificationStage from '../../components/chartStages/IdentificationStage';
+import PaymentStage from '../../components/chartStages/PaymentStage';
+import RevisionStage from '../../components/chartStages/RevisionStage';
+import CompleteStage from '../../components/chartStages/CompleteStage';
+
+export default function Carrinho() {
+    const [loading, setLoading] = useState(true);
+    const chartStage = useChartStore((state) => state.ChartStage)
+    const setChartStage = useChartStore((state) => state.setChartStage)
+    const [userChart, setUserChart] = useState([]);
+
+    useEffect(() => {
+        getChart((carrinho) => {
+            setUserChart(carrinho);
+            setChartStage('chart')
+        });
+        setLoading(false)
+    }, [])
+
+    return (
         <div className='flex flex-col'>
+            {loading === true && (
+                <LoadingComponent></LoadingComponent>
+            )}
             <Header></Header>
-            <div className='flex justify-between'>
-                <div className='bg-red-400'>
-                    <div>
-                        <p className='text-2xl font-medium text-[#9D8168]'>Selecione o endereço</p>
-                        <div className='h-[44px]'>
-                            <input placeholder='Insira o CEP' className='py-4'></input>
-                            <button className='px-8 py-4 rounded-[10px] text-[#FFFFFF] bg-[#9D8168]'>Confirmar</button>
-                        </div>
-                    </div>
-                    <div>
+            <ChartStagesIcons chartStage={chartStage}></ChartStagesIcons>
 
-                    </div>
-                </div>
-                <div className='bg-blue-400'>
-                    <div>
-                        <p>Revisão</p>
-                    </div>
-                </div>
-            </div>
+            {chartStage === 'chart' &&
+                <ChartStage userChart={userChart}></ChartStage>
+            }
+
+            {chartStage === 'identification' &&
+                <IdentificationStage></IdentificationStage>
+            }
+
+            {chartStage === 'payment' &&
+                <PaymentStage></PaymentStage>
+            }
+
+            {chartStage === 'revision' &&
+                <RevisionStage></RevisionStage>
+            }
+
+            {chartStage === 'complete' &&
+                <CompleteStage></CompleteStage>
+            }
+
             <Footer></Footer>
         </div>
     )

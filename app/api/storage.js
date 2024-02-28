@@ -12,6 +12,11 @@ const StorageService = {
     Cookies.remove('token');
     Cookies.set('token', token);
   },
+
+  saveId: (id) => {
+    Cookies.remove('id');
+    Cookies.set('id', id);
+  },
   
   getToken: () => {
     return Cookies.get('token');
@@ -35,7 +40,7 @@ const StorageService = {
   },
 
   isUserLoggedIn: () => {
-    return StorageService.getToken() && StorageService.getUserRole() === 'USER';
+    return StorageService.getToken() && StorageService.getUserRole() == null;
   },
 
   logout: () => {

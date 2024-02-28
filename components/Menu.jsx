@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import { usePathname } from 'next/navigation';
 import Link from "next/link";
 import Image from "next/image";
-
-import { HandleLogin, HandleSignUp } from "../app/api/requests";
+import { HandleLogin, HandleSignUp, GoogleSignUp } from "../app/api/requests";
+import { signIn } from "next-auth/react"
+import { useSession } from "next-auth/react";
+import { useAppStore } from '../store/AppStore'
 
 import Logo from "../src/media/logo.svg";
 import Menubtn from "../src/media/menubtn.svg";
@@ -40,9 +42,26 @@ export default function Menu() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const session = useSession();
+
+  const googleLoginSession = useAppStore((state) => state.googleLoginSession)
+  const setGoogleLoginSession = useAppStore((state) => state.setGoogleLoginSession)
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const googleLogin = () => {
+    setGoogleLoginSession(true);
+    signIn('google')
+  }
+
+  useEffect(()=>{
+    if (session.status === 'authenticated' && googleLoginSession === true) {
+      GoogleSignUp(session.data.user.name,session.data.user.email, session.data.user.image)
+      setGoogleLoginSession(false);
+    }
+  },[googleLoginSession])
 
   useEffect(() => {
     //controlar rolamento da tela quando o menu está aberto
@@ -176,11 +195,11 @@ export default function Menu() {
                         <p className="text-lg cursor-default text-[#9D8168] my-8">
                             Ou
                         </p>
-                        <button className="flex w-full py-[10px] justify-center relative rounded-lg text-[#ffff] bg-[#1877F2]">
+                        <button onClick={() => signIn('facebook')} className="flex w-full py-[10px] justify-center relative rounded-lg text-[#ffff] bg-[#1877F2]">
                             <Image src={FacebookLoginImg} alt="Continuar com Facebook" className="absolute left-0 ml-4 bg-[#1877F2]"></Image>
                             Continuar com Facebook
                         </button>
-                        <button className="flex w-full py-[10px] mt-4 justify-center relative rounded-lg text-[#888] bg-[#ffff] border">
+                        <button onClick={() => googleLogin()} className="flex w-full py-[10px] mt-4 justify-center relative rounded-lg text-[#888] bg-[#ffff] border">
                             <Image src={GoogleLoginImg} alt="Continuar com Facebook" className="absolute left-0 ml-4"></Image>
                             Continuar com google
                         </button>
@@ -189,7 +208,7 @@ export default function Menu() {
                             Continuar com Apple
                         </button>
                     </div>
-                    <div className="flex justify-center mt-8 whitespace-nowrap lg:mb-[36px]">
+                    <div className="flex justify-center mt-8 lg:mb-[36px] max-[380px]:text-[0.700rem] text-sm">
                         <p className="cursor-default text-[#888]">Ainda não está na Capelli Hair?</p>
                         <button onClick={(() => setSignUpOpen(!signUpOpen))} className="ml-2 underline text-[#9D8168]">Crie uma conta</button>
                     </div>
@@ -212,7 +231,7 @@ export default function Menu() {
                 </div>
                 <div className="px-6">
                     <div className="flex flex-col justify-center space-y-6">
-                        <input placeholder="Nome Completo" type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} className="w-full border pl-4 pr-12 mt-12 relative h-11 rounded-[10px] border-[#888888]"></input>
+                        <input placeholder="Nome Completo" type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} className="w-full border pl-4 pr-12 mt-8 relative h-11 rounded-[10px] border-[#888888]"></input>
                         <input placeholder="Telefone" type="number" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full border px-4 h-11 rounded-[10px] border-[#888888]"></input>
                         <input placeholder="E-mail" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border pl-4 pr-12 relative h-11 rounded-[10px] border-[#888888]"></input>
                         <div className="relative">
@@ -233,7 +252,7 @@ export default function Menu() {
                             <Image src={FacebookLoginImg} alt="Continuar com Facebook" className="absolute left-0 ml-4 bg-[#1877F2]"></Image>
                             Continuar com Facebook
                         </button>
-                        <button className="flex w-full h-11 py-[10px] mt-4 justify-center relative rounded-lg text-[#888] bg-[#ffff] border">
+                        <button onClick={() => signIn('google')} className="flex w-full h-11 py-[10px] mt-4 justify-center relative rounded-lg text-[#888] bg-[#ffff] border">
                             <Image src={GoogleLoginImg} alt="Continuar com Facebook" className="absolute left-0 ml-4"></Image>
                             Continuar com google
                         </button>

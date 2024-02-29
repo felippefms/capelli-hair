@@ -6,7 +6,7 @@ import Footer from '../../components/Footer';
 import ChartStagesIcons from '../../components/chartStages/ChartStagesIcons';
 import LoadingComponent from '../../components/LoadingComponent';
 import { useChartStore } from '../../store/ChartStore';
-import { getChart } from '../api/requests';
+import { getChart, getChartTotalValue } from '../api/requests';
 
 import ChartStage from '../../components/chartStages/ChartStage';
 import IdentificationStage from '../../components/chartStages/IdentificationStage';
@@ -18,6 +18,7 @@ export default function Carrinho() {
     const [loading, setLoading] = useState(true);
     const chartStage = useChartStore((state) => state.ChartStage)
     const setChartStage = useChartStore((state) => state.setChartStage)
+    const setChartTotalValue = useChartStore((state) => state.setChartTotalValue)
     const [userChart, setUserChart] = useState([]);
 
     useEffect(() => {
@@ -25,6 +26,10 @@ export default function Carrinho() {
             setUserChart(carrinho);
             setChartStage('chart')
         });
+
+        getChartTotalValue((totalValue)=>{
+            setChartTotalValue(totalValue);
+        })
         setLoading(false)
     }, [])
 

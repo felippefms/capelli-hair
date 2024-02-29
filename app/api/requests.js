@@ -402,7 +402,7 @@ export function AddProductChart(produtoFinalizado, callback) {
     }
 }
 
- {/* RETORNA O CARRINHO DO USUÁRIO (EM PROGRESSO) */}
+ {/* RETORNA O CARRINHO DO USUÁRIO */}
 
  export function getChart(callback) {
     const token = CreateAuthorizationHeader();
@@ -417,6 +417,28 @@ export function AddProductChart(produtoFinalizado, callback) {
         .then((response)=>{
             const carrinho = response.data;
             callback(carrinho);
+        })
+        .catch(()=>{
+            console.log();
+        })
+    }
+}
+
+ {/* RETORNA O VALOR TOTAL DO CARRINHO DO USUÁRIO */}
+
+ export function getChartTotalValue(callback) {
+    const token = CreateAuthorizationHeader();
+    const id = Cookies.get('id');
+
+    if (StorageService.isUserLoggedIn() === true) {
+        instance.get(`/api/carrinho/carrinhos/calcula-valor-total/${id}`, {
+            headers: {
+                Authorization: token
+            }
+        })
+        .then((response)=>{
+            const totalValue = response.data;
+            callback(totalValue);
         })
         .catch(()=>{
             console.log();

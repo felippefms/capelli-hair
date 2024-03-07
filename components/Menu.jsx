@@ -16,7 +16,7 @@ import Carrinhoimg from "../src/media/bolsa.png";
 import Searchimg from "../src/media/searchimg.png";
 import Searchimgdsktp from "../src/media/searchimgdsktp.png";
 import Unlock from "../src/media/unlock.svg";
-import ArrowRight2img from "../src/media/arrowright2.svg";
+import CreateAccimg from "../src/media/createacc.png";
 import Instaimg from "../src/media/instaimg.png";
 import Tiktokimg from "../src/media/tiktokimg.png";
 import Facebookimg from "../src/media/facebookimg.png";
@@ -134,11 +134,14 @@ export default function Menu() {
 
             <button onClick={(() => setSignUpOpen(!signUpOpen))} className="flex items-center rounded-lg py-3 text-[#2E2E2E] whitespace-nowrap">
               <p className="pr-1 xl:pr-1">Criar conta</p>
-              <Image
-                src={ArrowRight2img}
-                alt="Entrar"
-                className="w-5 flex-shrink-0"
-              ></Image>
+              <div className="w-[14px] h-[14px] relative">
+                <Image
+                  src={CreateAccimg}
+                  fill
+                  alt="Entrar"
+                  className="w-5 flex-shrink-0"
+                ></Image>
+              </div>
             </button>
         </div>
 
@@ -189,7 +192,7 @@ export default function Menu() {
                         </Link>
                     </div>
                     <div className="flex flex-col justify-center items-center">
-                        <button onClick={() => HandleLogin(email, password)} className="flex justify-center w-full rounded-lg py-[10px] text-lg text-[#ffff] bg-[#9D8168]">
+                        <button onClick={() => HandleLogin(email, password)} className="flex justify-center w-full rounded-lg py-[10px] text-lg text-[14px] text-[#ffff] bg-[#9D8168]">
                             Entrar
                         </button>
                         <p className="text-lg cursor-default text-[#9D8168] my-8">

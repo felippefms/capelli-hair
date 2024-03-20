@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import Link from "next/link";
 import Image from "next/image";
 import { HandleLogin, HandleSignUp, GoogleSignUp } from "../app/api/requests";
+import StorageService from '../app/api/storage'
 import { signIn } from "next-auth/react"
 import { useSession } from "next-auth/react";
 import { useAppStore } from '../store/AppStore'
@@ -46,6 +47,8 @@ export default function Menu() {
 
   const googleLoginSession = useAppStore((state) => state.googleLoginSession)
   const setGoogleLoginSession = useAppStore((state) => state.setGoogleLoginSession)
+  const userLogged = useAppStore((state) => state.userLogged)
+  const setuserLogged = useAppStore((state) => state.setuserLogged)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -56,12 +59,25 @@ export default function Menu() {
     signIn('google')
   }
 
-  useEffect(()=>{
+  useEffect(() => {
+    console.log(session.status);
+    console.log(googleLoginSession);
     if (session.status === 'authenticated' && googleLoginSession === true) {
-      GoogleSignUp(session.data.user.name,session.data.user.email, session.data.user.image)
+      GoogleSignUp(session.data.user.name, session.data.user.email, session.data.user.image)
       setGoogleLoginSession(false);
     }
-  },[googleLoginSession])
+  }, [session])
+
+  useEffect(() => {
+    if (StorageService.isUserLoggedIn() === true) {
+      if (userLogged === null) {
+        setuserLogged(true);
+      }
+    }
+    else {
+      setuserLogged(false);
+    }
+  }, [])
 
   useEffect(() => {
     //controlar rolamento da tela quando o menu está aberto
@@ -126,24 +142,47 @@ export default function Menu() {
           </li>
         </ul>
 
-        <div className="flex flex-col items-center justify-center pt-14 space-y-12 xl:flex-row xl:m-0 xl:p-0 xl:space-y-0 xl:space-x-[9px] xl:mr-[26px]">
+        {userLogged === true ? (
+          <div className="flex flex-col items-center justify-center pt-14 space-y-12 xl:flex-row xl:m-0 xl:p-0 xl:space-y-0 xl:space-x-[9px] xl:mr-[26px]">
             <button onClick={(() => setLoginOpen(!loginOpen))} className="flex items-center justify-center py-2 px-5 rounded-lg text-white bg-[#9D8168]">
-              <p className="pr-1">Entrar</p>
+              <p className="pr-1">Minha conta</p>
               <Image src={Unlock} alt="Entrar" className="w-4"></Image>
             </button>
 
             <button onClick={(() => setSignUpOpen(!signUpOpen))} className="flex items-center rounded-lg py-3 text-[#2E2E2E] whitespace-nowrap">
-              <p className="pr-1 xl:pr-1">Criar conta</p>
+              <p className="pr-1 xl:pr-1">Sair</p>
               <div className="w-[14px] h-[14px] relative">
                 <Image
                   src={CreateAccimg}
                   fill
-                  alt="Entrar"
+                  alt="Criar Conta"
                   className="w-5 flex-shrink-0"
                 ></Image>
               </div>
             </button>
-        </div>
+          </div>
+        )
+        : userLogged === false &&
+        (
+          <div className="flex flex-col items-center justify-center pt-14 space-y-12 xl:flex-row xl:m-0 xl:p-0 xl:space-y-0 xl:space-x-[9px] xl:mr-[26px]">
+              <button onClick={(() => setLoginOpen(!loginOpen))} className="flex items-center justify-center py-2 px-5 rounded-lg text-white bg-[#9D8168]">
+                <p className="pr-1">Entrar</p>
+                <Image src={Unlock} alt="Entrar" className="w-4"></Image>
+              </button>
+
+              <button onClick={(() => setSignUpOpen(!signUpOpen))} className="flex items-center rounded-lg py-3 text-[#2E2E2E] whitespace-nowrap">
+                <p className="pr-1 xl:pr-1">Criar conta</p>
+                <div className="w-[14px] h-[14px] relative">
+                  <Image
+                    src={CreateAccimg}
+                    fill
+                    alt="Criar Conta"
+                    className="w-5 flex-shrink-0"
+                  ></Image>
+                </div>
+              </button>
+          </div>
+        )}
 
         <div className="flex justify-center pt-12 space-x-6 xl:p-0 xl:space-x-0 xl:hidden">
           <Image src={Facebookimg} alt="Facebook" className="w-8 h-8"></Image>

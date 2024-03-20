@@ -69,13 +69,18 @@ export function GoogleSignUp(name, email, picture){
     };
 
     instance.post('/google', userData)
-        .then(() => {
+        .then((response) => {
+            const bearerToken = response.data.jwtToken;
+            const id = response.data.id;
+
             Cookies.remove('token','user');
 
-            Cookies.set('token', bearerToken, { expires: 5 });
-            Cookies.set('user', userType, { expires: 5 });
+            StorageService.saveToken(bearerToken);
+            StorageService.saveId(id);
 
-            window.location.href = '/'
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1000);
     })
         .catch(() => {
             console.log();
